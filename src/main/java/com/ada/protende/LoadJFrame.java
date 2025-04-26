@@ -35,22 +35,28 @@ public class LoadJFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        selfLoadTextFiled = new javax.swing.JTextField();
+        othersDeadLoadTextField = new javax.swing.JTextField();
+        liveLoadPrincipalTextField = new javax.swing.JTextField();
+        liveLoadSecundaryTextField = new javax.swing.JTextField();
+        pis_2_coeff_textField = new javax.swing.JTextField();
+        psi_1_CoeffTextField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(500, 500));
+        setMinimumSize(new java.awt.Dimension(400, 390));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Courier 10 Pitch", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Carregmamento");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 460, 30);
+        jLabel1.setBounds(0, 0, 400, 30);
 
         jLabel2.setText("Peso próprio");
         getContentPane().add(jLabel2);
@@ -70,37 +76,60 @@ public class LoadJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("kNm");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(390, 80, 32, 19);
+        jLabel6.setBounds(330, 80, 26, 16);
 
         jLabel7.setText("kNm");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(390, 110, 32, 19);
+        jLabel7.setBounds(330, 110, 26, 16);
 
         jLabel8.setText("kNm");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(390, 140, 32, 19);
+        jLabel8.setBounds(330, 140, 26, 16);
 
         jLabel9.setText("kNm");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(390, 170, 32, 19);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(260, 80, 90, 25);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(260, 110, 90, 25);
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(260, 140, 90, 25);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(260, 170, 90, 25);
+        jLabel9.setBounds(330, 170, 26, 16);
 
-        jSeparator1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Momentos fletores"));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel10.setText("Coeficientes de ponderação no Estado Limite de Serviço");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(0, 220, 400, 16);
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setText("Momentos fletores");
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(0, 30, 400, 16);
+
+        jLabel12.setText("<html> &#968<sub>2<sub>");
+        getContentPane().add(jLabel12);
+        jLabel12.setBounds(10, 290, 20, 16);
+
+        jLabel13.setText("<html> &#968<sub>1<sub>");
+        getContentPane().add(jLabel13);
+        jLabel13.setBounds(10, 260, 20, 22);
+        getContentPane().add(selfLoadTextFiled);
+        selfLoadTextFiled.setBounds(200, 80, 90, 26);
+        getContentPane().add(othersDeadLoadTextField);
+        othersDeadLoadTextField.setBounds(200, 110, 90, 26);
+        getContentPane().add(liveLoadPrincipalTextField);
+        liveLoadPrincipalTextField.setBounds(200, 140, 90, 26);
+        getContentPane().add(liveLoadSecundaryTextField);
+        liveLoadSecundaryTextField.setBounds(200, 170, 90, 26);
+        getContentPane().add(pis_2_coeff_textField);
+        pis_2_coeff_textField.setBounds(50, 290, 68, 26);
+        getContentPane().add(psi_1_CoeffTextField);
+        psi_1_CoeffTextField.setBounds(50, 260, 68, 26);
+
+        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(0, 250, 480, 150);
+        jSeparator1.setBounds(0, 240, 400, 90);
 
-        jSeparator2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Momentos fletores"));
+        jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator2);
-        jSeparator2.setBounds(0, 50, 480, 160);
+        jSeparator2.setBounds(0, 50, 400, 160);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -140,6 +169,10 @@ public class LoadJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -150,9 +183,11 @@ public class LoadJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField liveLoadPrincipalTextField;
+    private javax.swing.JTextField liveLoadSecundaryTextField;
+    private javax.swing.JTextField othersDeadLoadTextField;
+    private javax.swing.JTextField pis_2_coeff_textField;
+    private javax.swing.JTextField psi_1_CoeffTextField;
+    private javax.swing.JTextField selfLoadTextFiled;
     // End of variables declaration//GEN-END:variables
 }

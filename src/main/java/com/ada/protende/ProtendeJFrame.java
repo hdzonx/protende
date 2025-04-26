@@ -26,14 +26,27 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        prestressedTypeGroup = new javax.swing.ButtonGroup();
+        executiveTypeGroup = new javax.swing.ButtonGroup();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -54,6 +67,52 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 890, 40);
 
+        jLabel3.setText("Tipo de protensão");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(30, 90, 110, 16);
+
+        prestressedTypeGroup.add(jRadioButton1);
+        jRadioButton1.setText("Completa");
+        getContentPane().add(jRadioButton1);
+        jRadioButton1.setBounds(50, 120, 120, 21);
+
+        prestressedTypeGroup.add(jRadioButton2);
+        jRadioButton2.setText("Limitada");
+        getContentPane().add(jRadioButton2);
+        jRadioButton2.setBounds(50, 150, 110, 21);
+
+        prestressedTypeGroup.add(jRadioButton3);
+        jRadioButton3.setText("Parcial");
+        getContentPane().add(jRadioButton3);
+        jRadioButton3.setBounds(50, 180, 110, 21);
+
+        executiveTypeGroup.add(jRadioButton4);
+        jRadioButton4.setText("Armadura pré-tracionada");
+        getContentPane().add(jRadioButton4);
+        jRadioButton4.setBounds(500, 120, 180, 21);
+
+        executiveTypeGroup.add(jRadioButton5);
+        jRadioButton5.setText("Armadura pós-tracionada aderente");
+        getContentPane().add(jRadioButton5);
+        jRadioButton5.setBounds(500, 150, 230, 21);
+
+        executiveTypeGroup.add(jRadioButton6);
+        jRadioButton6.setText("Armadura pós-tracionada não aderente");
+        getContentPane().add(jRadioButton6);
+        jRadioButton6.setBounds(500, 180, 250, 21);
+
+        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(30, 110, 330, 110);
+
+        jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(jSeparator2);
+        jSeparator2.setBounds(490, 110, 330, 110);
+
+        jLabel4.setText("Método executivo");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(490, 90, 110, 16);
+
         jMenu1.setText("Arquivo");
 
         jMenuItem4.setText("Novo");
@@ -71,13 +130,21 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
-        jMenuItem3.setText("Seção");
+        jMenuItem3.setText("Geometria");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
         jMenu2.add(jMenuItem3);
+
+        jMenuItem6.setText("Carregamento");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
 
@@ -112,6 +179,10 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         new sectionPropertiesJFrame().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        new LoadJFrame().setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,8 +220,11 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup executiveTypeGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -160,5 +234,15 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.ButtonGroup prestressedTypeGroup;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,16 +28,16 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
 
         sectionTypeButtonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        sectionAreaText = new javax.swing.JTextField();
+        inertiaText = new javax.swing.JTextField();
+        inferiorFiberDistanceText = new javax.swing.JTextField();
+        superiorFiberDistance = new javax.swing.JTextField();
+        prestressedExcentricityText = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         sectionTButton = new javax.swing.JRadioButton();
         sectionIButton = new javax.swing.JRadioButton();
@@ -51,17 +51,11 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         jLabel1.setToolTipText("Área de seção transversal");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(50, 200, 80, 40);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(130, 200, 100, 30);
 
         jLabel2.setText("<html>\n<p>I<sub>c</sub>  (cm<sup>4</sup>)</p>\n");
         jLabel2.setToolTipText("Momento de inércia");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(50, 250, 80, 40);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(130, 250, 100, 30);
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(130, 300, 100, 30);
 
         jLabel3.setText("<html>\n<p>y<sub>b</sub>  (cm)</p>\n");
         jLabel3.setToolTipText("Distância da fribra de base até o centroide da seção");
@@ -72,21 +66,27 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         jLabel4.setToolTipText("distância da fibra do topo até o cetroide da seção");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(50, 350, 80, 40);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(130, 350, 100, 30);
 
         jLabel5.setText("<html> <p>e<sub>p</sub>  (cm)</p> ");
         jLabel5.setToolTipText("distância do centroide da protensão até o centroide da seção");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(50, 400, 80, 40);
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(130, 400, 100, 30);
 
         jLabel6.setFont(new java.awt.Font("Courier 10 Pitch", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Propriedades da seção");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(0, 0, 300, 23);
+        jLabel6.setBounds(0, 0, 300, 24);
+        getContentPane().add(sectionAreaText);
+        sectionAreaText.setBounds(130, 200, 100, 30);
+        getContentPane().add(inertiaText);
+        inertiaText.setBounds(130, 250, 100, 30);
+        getContentPane().add(inferiorFiberDistanceText);
+        inferiorFiberDistanceText.setBounds(130, 300, 100, 30);
+        getContentPane().add(superiorFiberDistance);
+        superiorFiberDistance.setBounds(130, 350, 100, 30);
+        getContentPane().add(prestressedExcentricityText);
+        prestressedExcentricityText.setBounds(130, 400, 100, 30);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo da seção"));
         getContentPane().add(jSeparator1);
@@ -95,17 +95,17 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         sectionTypeButtonGroup.add(sectionTButton);
         sectionTButton.setText("seção T ou duplo T");
         getContentPane().add(sectionTButton);
-        sectionTButton.setBounds(60, 70, 190, 24);
+        sectionTButton.setBounds(60, 70, 190, 21);
 
         sectionTypeButtonGroup.add(sectionIButton);
-        sectionIButton.setText("seção I ou T ivertido");
+        sectionIButton.setText("seção I ou T invertido");
         getContentPane().add(sectionIButton);
-        sectionIButton.setBounds(60, 100, 190, 24);
+        sectionIButton.setBounds(60, 100, 190, 21);
 
         sectionTypeButtonGroup.add(rectangularSectionButton);
         rectangularSectionButton.setText("seção Retangular");
         getContentPane().add(rectangularSectionButton);
-        rectangularSectionButton.setBounds(60, 130, 170, 24);
+        rectangularSectionButton.setBounds(60, 130, 170, 21);
 
         pack();
         setLocationRelativeTo(null);
@@ -147,6 +147,8 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField inertiaText;
+    private javax.swing.JTextField inferiorFiberDistanceText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -154,14 +156,12 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField prestressedExcentricityText;
     private javax.swing.JRadioButton rectangularSectionButton;
+    private javax.swing.JTextField sectionAreaText;
     private javax.swing.JRadioButton sectionIButton;
     private javax.swing.JRadioButton sectionTButton;
     private javax.swing.ButtonGroup sectionTypeButtonGroup;
+    private javax.swing.JTextField superiorFiberDistance;
     // End of variables declaration//GEN-END:variables
 }
