@@ -80,47 +80,47 @@ public class MaterialJFrame extends javax.swing.JFrame {
         fckButtonGroup.add(C40);
         C40.setText("C40");
         getContentPane().add(C40);
-        C40.setBounds(20, 46, 45, 21);
+        C40.setBounds(20, 46, 60, 21);
 
         fckButtonGroup.add(C45);
         C45.setText("C45");
         getContentPane().add(C45);
-        C45.setBounds(20, 76, 45, 21);
+        C45.setBounds(20, 76, 60, 21);
 
         fckButtonGroup.add(C50);
         C50.setText("C50");
         getContentPane().add(C50);
-        C50.setBounds(20, 106, 45, 21);
+        C50.setBounds(20, 106, 60, 21);
 
         fckButtonGroup.add(C55);
         C55.setText("C55");
         getContentPane().add(C55);
-        C55.setBounds(100, 46, 45, 21);
+        C55.setBounds(100, 46, 60, 21);
 
         fckButtonGroup.add(C60);
         C60.setText("C60");
         getContentPane().add(C60);
-        C60.setBounds(100, 76, 45, 21);
+        C60.setBounds(100, 76, 60, 21);
 
         fckButtonGroup.add(C65);
         C65.setText("C65");
         getContentPane().add(C65);
-        C65.setBounds(100, 106, 45, 21);
+        C65.setBounds(100, 106, 60, 21);
 
         fckButtonGroup.add(C70);
         C70.setText("C70");
         getContentPane().add(C70);
-        C70.setBounds(180, 46, 45, 21);
+        C70.setBounds(180, 46, 70, 21);
 
         fckButtonGroup.add(C75);
         C75.setText("C75");
         getContentPane().add(C75);
-        C75.setBounds(180, 76, 45, 21);
+        C75.setBounds(180, 76, 70, 21);
 
         fckButtonGroup.add(C80);
         C80.setText("C80");
         getContentPane().add(C80);
-        C80.setBounds(180, 106, 45, 21);
+        C80.setBounds(180, 106, 70, 21);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(6, 192, 400, 3);
         getContentPane().add(jSeparator2);
@@ -163,7 +163,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
         CP190_152.setText("CP 190 RB 15,2 - 7 fios");
         CP190_152.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(CP190_152);
-        CP190_152.setBounds(14, 337, 141, 21);
+        CP190_152.setBounds(14, 337, 190, 21);
 
         prestressedSteelButtonGroup.add(CP190_157);
         CP190_157.setText("CP 190 RB 15,7 - 7 fios");

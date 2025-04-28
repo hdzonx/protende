@@ -41,8 +41,8 @@ public class LoadJFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         selfLoadTextFiled = new javax.swing.JTextField();
         othersDeadLoadTextField = new javax.swing.JTextField();
-        liveLoadPrincipalTextField = new javax.swing.JTextField();
-        liveLoadSecundaryTextField = new javax.swing.JTextField();
+        liveLoadPrincipalMomentTextField = new javax.swing.JTextField();
+        liveLoadSecundaryMomentTextField = new javax.swing.JTextField();
         pis_2_coeff_textField = new javax.swing.JTextField();
         psi_1_CoeffTextField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -111,10 +111,10 @@ public class LoadJFrame extends javax.swing.JFrame {
         selfLoadTextFiled.setBounds(200, 80, 90, 26);
         getContentPane().add(othersDeadLoadTextField);
         othersDeadLoadTextField.setBounds(200, 110, 90, 26);
-        getContentPane().add(liveLoadPrincipalTextField);
-        liveLoadPrincipalTextField.setBounds(200, 140, 90, 26);
-        getContentPane().add(liveLoadSecundaryTextField);
-        liveLoadSecundaryTextField.setBounds(200, 170, 90, 26);
+        getContentPane().add(liveLoadPrincipalMomentTextField);
+        liveLoadPrincipalMomentTextField.setBounds(200, 140, 90, 26);
+        getContentPane().add(liveLoadSecundaryMomentTextField);
+        liveLoadSecundaryMomentTextField.setBounds(200, 170, 90, 26);
         getContentPane().add(pis_2_coeff_textField);
         pis_2_coeff_textField.setBounds(50, 290, 68, 26);
         getContentPane().add(psi_1_CoeffTextField);
@@ -183,8 +183,8 @@ public class LoadJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField liveLoadPrincipalTextField;
-    private javax.swing.JTextField liveLoadSecundaryTextField;
+    private javax.swing.JTextField liveLoadPrincipalMomentTextField;
+    private javax.swing.JTextField liveLoadSecundaryMomentTextField;
     private javax.swing.JTextField othersDeadLoadTextField;
     private javax.swing.JTextField pis_2_coeff_textField;
     private javax.swing.JTextField psi_1_CoeffTextField;
