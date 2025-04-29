@@ -4,6 +4,8 @@
  */
 package com.ada.prestressedCalc;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Hudson
@@ -21,6 +23,7 @@ public class CompletePrestressing {
     private final double liveLoadSecundaryMoment;
     private final double psi_1_Coeff;
     private final double psi_2_Coeff;
+    private final double fck;
 
     public CompletePrestressing(Builder builder) {
         inertia = builder.inertia;
@@ -34,6 +37,7 @@ public class CompletePrestressing {
         liveLoadSecundaryMoment = builder.liveLoadSecundaryMoment;
         psi_1_Coeff = builder.psi_1_Coeff;
         psi_2_Coeff = builder.psi_2_Coeff;
+        fck = builder.fck;
 
     }
 
@@ -50,6 +54,7 @@ public class CompletePrestressing {
         private double liveLoadSecundaryMoment = 0.0;
         private double psi_1_Coeff = 0.0;
         private double psi_2_Coeff = 0.0;
+        private double fck = 0.0;
 
         public Builder inertia(double val) {
             inertia = val;
@@ -105,9 +110,46 @@ public class CompletePrestressing {
             psi_2_Coeff = val;
             return this;
         }
-        
-        private void descompressionLimiteState(){
+
+        public Builder fck(double val) {
+            fck = val;
+            return this;
+        }
+
+        private double normalStress(double moment, double inertia, double distance) {
+            double stress = moment * distance / inertia;
+            return stress;
+        }
+
+        protected void descompressionLimiteState() throws Exception {
+
+            //tensões devido aos momentos permanentes
+            double selfLoadStressInf = normalStress(selfLoadMoment, inertia, inferiorFiberDistance);
+            double othersDeadStressInf = normalStress(othersDeadLoad, inertia, inferiorFiberDistance);
+            double selfLoadStressSup = -normalStress(selfLoadMoment, inertia, superiorFiberDistance);
+            double othersDeadStressSup = -normalStress(othersDeadLoad, inertia, superiorFiberDistance);
+            // tensões devido aos momentos variáveis
+            double liveLoadPrincipalStressInf = normalStress(liveLoadPrincipalMoment, inertia, inferiorFiberDistance);
+            double liveLoadSecundaryStressInf = normalStress(liveLoadSecundaryMoment, inertia, inferiorFiberDistance);
+            double liveLoadPrincipalStressSup = -normalStress(liveLoadPrincipalMoment, inertia, superiorFiberDistance);
+            double liveLoadSecundaryStressSup = -normalStress(liveLoadSecundaryMoment, inertia, superiorFiberDistance);
+
+            //tensão de protensão em relação às fibras inferiores
+            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + psi_1_Coeff * liveLoadPrincipalStressInf + psi_2_Coeff * liveLoadSecundaryStressInf;
+
+            double den = 1 - area * prestressingExcentricity * inferiorFiberDistance / inertia;
+            double prestressedForce = prestresStressInf * area / den;
+
+            //verificação das tensões de tração (topo da viga)
+            double prestressStressSup = prestressedForce / area * (1 - area * prestressingExcentricity * superiorFiberDistance / inertia);
+
+            double  compressionStress= selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup -prestressStressSup;
             
+            if (compressionStress > 0.5*fck) {
+            JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
+            throw new Exception("Does not meet the decompression limit state");
+                
+            }
         }
 
     }
