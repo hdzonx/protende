@@ -12,18 +12,19 @@ import javax.swing.JOptionPane;
  */
 public class CompletePrestressing {
 
-    private final double inertia;
-    private final double area;
-    private final double prestressingExcentricity;
-    private final double inferiorFiberDistance;
-    private final double superiorFiberDistance;
-    private final double selfLoadMoment;
-    private final double othersDeadLoad;
-    private final double liveLoadPrincipalMoment;
-    private final double liveLoadSecundaryMoment;
+    private final double inertia; //cm4
+    private final double area;//cm²
+    private final double prestressingExcentricity;//cm
+    private final double inferiorFiberDistance;//cm
+    private final double superiorFiberDistance;//cm
+    private final double selfLoadMoment;//kNcm
+    private final double othersDeadLoad;//kNcm
+    private final double liveLoadPrincipalMoment;//kNcm
+    private final double liveLoadSecundaryMoment;//kNcm
     private final double psi_1_Coeff;
     private final double psi_2_Coeff;
-    private final double fck;
+    private final double fck; // kN/cm²
+    private final String sectionType;
 
     public CompletePrestressing(Builder builder) {
         inertia = builder.inertia;
@@ -38,6 +39,7 @@ public class CompletePrestressing {
         psi_1_Coeff = builder.psi_1_Coeff;
         psi_2_Coeff = builder.psi_2_Coeff;
         fck = builder.fck;
+        sectionType = builder.sectionType;
 
     }
 
@@ -55,6 +57,7 @@ public class CompletePrestressing {
         private double psi_1_Coeff = 0.0;
         private double psi_2_Coeff = 0.0;
         private double fck = 0.0;
+        private String sectionType = "";
 
         public Builder inertia(double val) {
             inertia = val;
@@ -116,12 +119,34 @@ public class CompletePrestressing {
             return this;
         }
 
+        public Builder sectionType(String val) {
+            sectionType = val;
+            return this;
+        }
+
         private double normalStress(double moment, double inertia, double distance) {
             double stress = moment * distance / inertia;
             return stress;
         }
 
-        protected void descompressionLimiteState() throws Exception {
+        private double concreteStressTension() throws Exception {
+            double alpha = 0.0;
+            if (sectionType.equalsIgnoreCase("sectionT")) {
+                alpha = 1.2;
+
+            } else if (sectionType.equalsIgnoreCase("sectionI")) {
+                alpha = 1.3;
+
+            } else if (sectionType.equalsIgnoreCase("rectangularSection")) {
+                alpha = 1.5;
+            } else {
+                JOptionPane.showMessageDialog(null, "Tipo de seção não reconhecido");
+                throw new Exception("non-existent section type");
+            }
+            return 0.1 * alpha * 0.7 * 0.3 * Math.pow(10 * fck, 2.0 / 3.0);
+        }
+
+        protected void serviceabilityLimitState() throws Exception {
 
             //tensões devido aos momentos permanentes
             double selfLoadStressInf = normalStress(selfLoadMoment, inertia, inferiorFiberDistance);
@@ -134,24 +159,25 @@ public class CompletePrestressing {
             double liveLoadPrincipalStressSup = -normalStress(liveLoadPrincipalMoment, inertia, superiorFiberDistance);
             double liveLoadSecundaryStressSup = -normalStress(liveLoadSecundaryMoment, inertia, superiorFiberDistance);
 
-            //tensão de protensão em relação às fibras inferiores
+            //tensão de protensão em relação às fibras inferiores para o Estado Limite de Descompressão
             double prestresStressInf = selfLoadStressInf + othersDeadStressInf + psi_1_Coeff * liveLoadPrincipalStressInf + psi_2_Coeff * liveLoadSecundaryStressInf;
-
             double den = 1 - area * prestressingExcentricity * inferiorFiberDistance / inertia;
             double prestressedForce = prestresStressInf * area / den;
 
-            //verificação das tensões de tração (topo da viga)
+            //verificação das tensões de tração (topo da viga) para o Estado Limite de Descompressão
             double prestressStressSup = prestressedForce / area * (1 - area * prestressingExcentricity * superiorFiberDistance / inertia);
+            double compressionStress = selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
 
-            double  compressionStress= selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup -prestressStressSup;
-            
-            if (compressionStress > 0.5*fck) {
-            JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
-            throw new Exception("Does not meet the decompression limit state");
-                
+            //Verificação do Estado Limite de Descompressão
+            if (compressionStress > 0.5 * fck) {
+                JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
+                throw new Exception("Does not meet the decompression limit state");
             }
-        }
 
+            //Tensão de protensão nas fibras inferiores parao Estado Limite de Formação de Fissuras
+            double prestresStressInfFiss = selfLoadStressInf + othersDeadStressInf + liveLoadPrincipalStressInf + psi_1_Coeff * liveLoadSecundaryStressInf - concreteStressTension();
+            double prestressedForceFiss = prestresStressInfFiss * area / den;
+        }
     }
 
 }
