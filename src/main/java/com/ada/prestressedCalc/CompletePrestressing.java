@@ -146,7 +146,18 @@ public class CompletePrestressing {
             return 0.1 * alpha * 0.7 * 0.3 * Math.pow(10 * fck, 2.0 / 3.0);
         }
 
-        protected void serviceabilityLimitState() throws Exception {
+        protected double prestressedForce(double prestresStress, double fiberDistance) {
+            double den = 1 - area * prestressingExcentricity * fiberDistance / inertia;
+            return prestresStress * area / den;
+
+        }
+
+        protected double prestressedStress(double prestressedForce, double fiberDistance) {
+            return (prestressedForce / area) * (1 + area * prestressingExcentricity * fiberDistance / inertia);
+
+        }
+
+        protected void serviceabilityLimitState(String limiteStateType) throws Exception {
 
             //tensões devido aos momentos permanentes
             double selfLoadStressInf = normalStress(selfLoadMoment, inertia, inferiorFiberDistance);
@@ -159,24 +170,31 @@ public class CompletePrestressing {
             double liveLoadPrincipalStressSup = -normalStress(liveLoadPrincipalMoment, inertia, superiorFiberDistance);
             double liveLoadSecundaryStressSup = -normalStress(liveLoadSecundaryMoment, inertia, superiorFiberDistance);
 
-            //tensão de protensão em relação às fibras inferiores para o Estado Limite de Descompressão
-            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + psi_1_Coeff * liveLoadPrincipalStressInf + psi_2_Coeff * liveLoadSecundaryStressInf;
-            double den = 1 - area * prestressingExcentricity * inferiorFiberDistance / inertia;
-            double prestressedForce = prestresStressInf * area / den;
+            if (limiteStateType.equalsIgnoreCase("descompression")) {
+                //tensão de protensão em relação às fibras inferiores para o Estado Limite de Descompressão
+                double prestresStressInf = selfLoadStressInf + othersDeadStressInf + psi_1_Coeff * liveLoadPrincipalStressInf + psi_2_Coeff * liveLoadSecundaryStressInf;
 
-            //verificação das tensões de tração (topo da viga) para o Estado Limite de Descompressão
-            double prestressStressSup = prestressedForce / area * (1 - area * prestressingExcentricity * superiorFiberDistance / inertia);
-            double compressionStress = selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
+                double force = prestressedForce(prestresStressInf, inferiorFiberDistance);
 
-            //Verificação do Estado Limite de Descompressão
-            if (compressionStress > 0.5 * fck) {
-                JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
-                throw new Exception("Does not meet the decompression limit state");
+                //verificação das tensões de tração (topo da viga) para o Estado Limite de Descompressão
+                double prestressStressSup = prestressedStress(force, superiorFiberDistance);
+                double compressionStress = selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
+
+                //Verificação do Estado Limite de Descompressão
+                if (compressionStress > 0.5 * fck) {
+                    JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
+                    throw new Exception("Does not meet the decompression limit state");
+                }
+
+            } else if (limiteStateType.equalsIgnoreCase("fissuration")) {
+                //Tensão de protensão nas fibras inferiores parao Estado Limite de Formação de Fissuras
+                double prestresStressInf = selfLoadStressInf + othersDeadStressInf + liveLoadPrincipalStressInf + psi_1_Coeff * liveLoadSecundaryStressInf - concreteStressTension();
+                double force = prestressedForce(prestresStressInf, inferiorFiberDistance);
+
+            } else {
+                throw new IllegalArgumentException("Limit states must be descompression ou fissuration");
             }
 
-            //Tensão de protensão nas fibras inferiores parao Estado Limite de Formação de Fissuras
-            double prestresStressInfFiss = selfLoadStressInf + othersDeadStressInf + liveLoadPrincipalStressInf + psi_1_Coeff * liveLoadSecundaryStressInf - concreteStressTension();
-            double prestressedForceFiss = prestresStressInfFiss * area / den;
         }
     }
 
