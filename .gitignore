@@ -42,3 +42,4 @@ buildNumber.properties
 *.zip
 *.tar.gz
 *.rar
+/nbproject/

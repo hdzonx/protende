@@ -124,7 +124,13 @@ public class CompletePrestressing {
             return this;
         }
 
-        private double normalStress(double moment, double inertia, double distance) {
+        public CompletePrestressing build() {
+            return new CompletePrestressing(this);
+        }
+
+      
+    }
+      private double normalStress(double moment, double inertia, double distance) {
             double stress = moment * distance / inertia;
             return stress;
         }
@@ -143,11 +149,11 @@ public class CompletePrestressing {
                 JOptionPane.showMessageDialog(null, "Tipo de seção não reconhecido");
                 throw new Exception("non-existent section type");
             }
-            return 0.1 * alpha * 0.7 * 0.3 * Math.pow(10 * fck, 2.0 / 3.0);
+            return 0.1 * alpha * 0.7 * 0.3 * Math.pow(fck, 2.0 / 3.0);
         }
 
         protected double prestressedForce(double prestresStress, double fiberDistance) {
-            double den = 1 - area * prestressingExcentricity * fiberDistance / inertia;
+            double den = 1 + area * prestressingExcentricity * fiberDistance / inertia;
             return prestresStress * area / den;
 
         }
@@ -234,6 +240,5 @@ public class CompletePrestressing {
             return effectiveArea * operatedStressTendonLimite;
 
         }
-    }
 
 }
