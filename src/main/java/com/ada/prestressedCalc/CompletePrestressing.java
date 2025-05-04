@@ -128,117 +128,119 @@ public class CompletePrestressing {
             return new CompletePrestressing(this);
         }
 
-      
     }
-      private double normalStress(double moment, double inertia, double distance) {
-            double stress = moment * distance / inertia;
-            return stress;
+
+    protected double normalStress(double moment, double inertia, double distance) {
+        double stress = moment * distance / inertia;
+        return stress;
+    }
+
+    private double concreteStressTension() throws Exception {
+        double alpha = 0.0;
+        if (sectionType.equalsIgnoreCase("sectionT")) {
+            alpha = 1.2;
+
+        } else if (sectionType.equalsIgnoreCase("sectionI")) {
+            alpha = 1.3;
+
+        } else if (sectionType.equalsIgnoreCase("rectangularSection")) {
+            alpha = 1.5;
+        } else {
+            JOptionPane.showMessageDialog(null, "Tipo de seção não reconhecido");
+            throw new Exception("non-existent section type");
         }
+        return 0.1 * alpha * 0.7 * 0.3 * Math.pow(fck, 2.0 / 3.0);
+    }
 
-        private double concreteStressTension() throws Exception {
-            double alpha = 0.0;
-            if (sectionType.equalsIgnoreCase("sectionT")) {
-                alpha = 1.2;
+    protected double prestressedForce(double prestresStress, double fiberDistance) {
+        double den = 1 + area * prestressingExcentricity * fiberDistance / inertia;
+        return prestresStress * area / den;
 
-            } else if (sectionType.equalsIgnoreCase("sectionI")) {
-                alpha = 1.3;
+    }
 
-            } else if (sectionType.equalsIgnoreCase("rectangularSection")) {
-                alpha = 1.5;
-            } else {
-                JOptionPane.showMessageDialog(null, "Tipo de seção não reconhecido");
-                throw new Exception("non-existent section type");
+    protected double prestressedStressSup(double prestressedForce, double fiberDistance) {
+        return -(prestressedForce / area) * (1 - area * prestressingExcentricity * fiberDistance / inertia);
+
+    }
+
+    protected double forceInServiceabilityLimitState(String limiteStateType) throws Exception {
+        //tensões devido aos momentos permanentes
+        double selfLoadStressInf = normalStress(selfLoadMoment, inertia, inferiorFiberDistance);
+        double othersDeadStressInf = normalStress(othersDeadLoad, inertia, inferiorFiberDistance);
+        double selfLoadStressSup = -normalStress(selfLoadMoment, inertia, superiorFiberDistance);
+        double othersDeadStressSup = -normalStress(othersDeadLoad, inertia, superiorFiberDistance);
+        // tensões devido aos momentos variáveis
+        double liveLoadPrincipalStressInf = normalStress(liveLoadPrincipalMoment, inertia, inferiorFiberDistance);
+        double liveLoadSecundaryStressInf = normalStress(liveLoadSecundaryMoment, inertia, inferiorFiberDistance);
+        double liveLoadPrincipalStressSup = -normalStress(liveLoadPrincipalMoment, inertia, superiorFiberDistance);
+        double liveLoadSecundaryStressSup = -normalStress(liveLoadSecundaryMoment, inertia, superiorFiberDistance);
+
+        double force = 0.0;
+        if (limiteStateType.equalsIgnoreCase("descompression")) {
+            //tensão de protensão em relação às fibras inferiores para o Estado Limite de Descompressão
+            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + psi_1_Coeff * liveLoadPrincipalStressInf + psi_2_Coeff * liveLoadSecundaryStressInf;
+            force = prestressedForce(prestresStressInf, inferiorFiberDistance);
+            //verificação das tensões de tração (topo da viga) para o Estado Limite de Descompressão
+            double prestressStressSup = prestressedStressSup(force, superiorFiberDistance);
+            double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
+            //Verificação do Estado Limite de Descompressão
+            if (totalCompressionStress > 0.5 * fck) {
+                JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
+                throw new Exception("Does not meet the decompression limit state");
             }
-            return 0.1 * alpha * 0.7 * 0.3 * Math.pow(fck, 2.0 / 3.0);
-        }
-
-        protected double prestressedForce(double prestresStress, double fiberDistance) {
-            double den = 1 + area * prestressingExcentricity * fiberDistance / inertia;
-            return prestresStress * area / den;
-
-        }
-
-        protected double prestressedStress(double prestressedForce, double fiberDistance) {
-            return (prestressedForce / area) * (1 + area * prestressingExcentricity * fiberDistance / inertia);
-
-        }
-
-        protected double forceInServiceabilityLimitState(String limiteStateType) throws Exception {
-            //tensões devido aos momentos permanentes
-            double selfLoadStressInf = normalStress(selfLoadMoment, inertia, inferiorFiberDistance);
-            double othersDeadStressInf = normalStress(othersDeadLoad, inertia, inferiorFiberDistance);
-            double selfLoadStressSup = -normalStress(selfLoadMoment, inertia, superiorFiberDistance);
-            double othersDeadStressSup = -normalStress(othersDeadLoad, inertia, superiorFiberDistance);
-            // tensões devido aos momentos variáveis
-            double liveLoadPrincipalStressInf = normalStress(liveLoadPrincipalMoment, inertia, inferiorFiberDistance);
-            double liveLoadSecundaryStressInf = normalStress(liveLoadSecundaryMoment, inertia, inferiorFiberDistance);
-            double liveLoadPrincipalStressSup = -normalStress(liveLoadPrincipalMoment, inertia, superiorFiberDistance);
-            double liveLoadSecundaryStressSup = -normalStress(liveLoadSecundaryMoment, inertia, superiorFiberDistance);
-
-            double force = 0.0;
-            if (limiteStateType.equalsIgnoreCase("descompression")) {
-                //tensão de protensão em relação às fibras inferiores para o Estado Limite de Descompressão
-                double prestresStressInf = selfLoadStressInf + othersDeadStressInf + psi_1_Coeff * liveLoadPrincipalStressInf + psi_2_Coeff * liveLoadSecundaryStressInf;
-                force = prestressedForce(prestresStressInf, inferiorFiberDistance);
-                //verificação das tensões de tração (topo da viga) para o Estado Limite de Descompressão
-                double prestressStressSup = prestressedStress(force, superiorFiberDistance);
-                double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
-                //Verificação do Estado Limite de Descompressão
-                if (totalCompressionStress > 0.5 * fck) {
-                    JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
-                    throw new Exception("Does not meet the decompression limit state");
-                }
-            } else if (limiteStateType.equalsIgnoreCase("fissuration")) {
-                //Tensão de protensão nas fibras inferiores parao Estado Limite de Formação de Fissuras
-                double prestresStressInf = selfLoadStressInf + othersDeadStressInf + liveLoadPrincipalStressInf + psi_1_Coeff * liveLoadSecundaryStressInf - concreteStressTension();
-                force = prestressedForce(prestresStressInf, inferiorFiberDistance);
-                double prestressStressSup = prestressedStress(force, superiorFiberDistance);
-                double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + liveLoadPrincipalStressSup + psi_1_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
-                if (totalCompressionStress > 0.5 * fck) {
-                    JOptionPane.showMessageDialog(null, "Não atende ao estado limite de fissuração");
-                    throw new Exception("Does not meet the fissuration limit state");
-                }
-            } else {
-                throw new IllegalArgumentException("Limit states must be descompression ou fissuration");
+        } else if (limiteStateType.equalsIgnoreCase("fissuration")) {
+            //Tensão de protensão nas fibras inferiores parao Estado Limite de Formação de Fissuras
+            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + liveLoadPrincipalStressInf + psi_1_Coeff * liveLoadSecundaryStressInf - concreteStressTension();
+            force = prestressedForce(prestresStressInf, inferiorFiberDistance);
+            double prestressStressSup = prestressedStressSup(force, superiorFiberDistance);
+            double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + liveLoadPrincipalStressSup + psi_1_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
+            if (totalCompressionStress > 0.5 * fck) {
+                JOptionPane.showMessageDialog(null, "Não atende ao estado limite de fissuração");
+                throw new Exception("Does not meet the fissuration limit state");
             }
-            return force;
+        } else {
+            throw new IllegalArgumentException("Limit states must be descompression ou fissuration");
         }
+        return force;
+    }
 
-        protected double finalForceWithLossPrestress(double lossOfPrestress) throws Exception {
-            double descompressionForce = forceInServiceabilityLimitState("descompression");
-            double fissurationForce = forceInServiceabilityLimitState("fissuration");
+    protected double finalForceWithLossPrestress(double lossOfPrestress) throws Exception {
+        double descompressionForce = forceInServiceabilityLimitState("descompression");
+        double fissurationForce = forceInServiceabilityLimitState("fissuration");
 
-            double force;
-            if (descompressionForce > fissurationForce) {
-                force = descompressionForce;
-            } else {
-                force = fissurationForce;
-            }
-            //Força de protensão final considerando as perdas de protensão
-            return force / (1 + lossOfPrestress);
+        double force;
+        System.out.println("Força na descompressão (kN)" + descompressionForce);
+        System.out.println("Força na abertura de fissuras (kN)" + fissurationForce);
+        if (descompressionForce > fissurationForce) {
+            force = descompressionForce;
+        } else {
+            force = fissurationForce;
         }
+        //Força de protensão final considerando as perdas de protensão
+        return force / (1 + lossOfPrestress);
+    }
 
-        protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
-            double tendonArea = 0.0;
-            if (tendonType.equalsIgnoreCase("CP190_127")) {
-                tendonArea = 1.01;
-            } else if (tendonType.equalsIgnoreCase("CP190_152")) {
-                tendonArea = 1.43;
-            } else if (tendonType.equalsIgnoreCase("CP190_157")) {
-                tendonArea = 1.50;
-            } else {
-                JOptionPane.showMessageDialog(null, " Não há especificação desta cordoalha no banco de dados");
-                throw new Exception("There is no specification for this tendon in the database");
-            }
-            double areaReq = finalForceWithLossPrestress / operatedStressTendonLimite;
-            int numberTendons = (int) (areaReq / tendonArea);
-
-            while (numberTendons * tendonArea < areaReq) {
-                numberTendons += 1;
-            }
-            double effectiveArea = numberTendons * tendonArea;
-            return effectiveArea * operatedStressTendonLimite;
-
+    protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
+        double tendonArea = 0.0;
+        if (tendonType.equalsIgnoreCase("CP190_127")) {
+            tendonArea = 1.01;
+        } else if (tendonType.equalsIgnoreCase("CP190_152")) {
+            tendonArea = 1.43;
+        } else if (tendonType.equalsIgnoreCase("CP190_157")) {
+            tendonArea = 1.50;
+        } else {
+            JOptionPane.showMessageDialog(null, " Não há especificação desta cordoalha no banco de dados");
+            throw new Exception("There is no specification for this tendon in the database");
         }
+        double areaReq = finalForceWithLossPrestress / operatedStressTendonLimite;
+        int numberTendons = (int) (areaReq / tendonArea);
+
+        while (numberTendons * tendonArea < areaReq) {
+            numberTendons += 1;
+        }
+        double effectiveArea = numberTendons * tendonArea;
+        return effectiveArea * operatedStressTendonLimite;
+
+    }
 
 }
