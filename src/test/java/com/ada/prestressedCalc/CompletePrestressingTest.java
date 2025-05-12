@@ -120,5 +120,48 @@ public class CompletePrestressingTest {
         double f = comp.forceInServiceabilityLimitState("fissuration");
         assertEquals(992.4, f, 0.1);
     }
+    
+    @Test
+    void testFinalForceWithLossPrestress() throws Exception{
+                CompletePrestressing comp = new CompletePrestressing.Builder()
+                .inertia(6.041E5)
+                .area(2.648E3)
+                .prestressingExcentricity(25)
+                .inferiorFiberDistance(35)
+                .superiorFiberDistance(15)
+                .selfLoadMoment(18619)
+                .othersDeadLoad(13500)
+                .liveLoadPrincipalMoment(5063)
+                .liveLoadSecundaryMoment(0)
+                .psi_1_Coeff(0.4)
+                .psi_2_Coeff(1)
+                .fck(50)
+                .sectionType("sectionT")
+                .build();
+                double f = comp.finalForceWithLossPrestress(0.3);
+                assertEquals(1547.6, f, 0.1);
+    }
+        
+    @Test
+    void testeffectivePrestressForce() throws Exception{
+                CompletePrestressing comp = new CompletePrestressing.Builder()
+                .inertia(6.041E5)
+                .area(2.648E3)
+                .prestressingExcentricity(25)
+                .inferiorFiberDistance(35)
+                .superiorFiberDistance(15)
+                .selfLoadMoment(18619)
+                .othersDeadLoad(13500)
+                .liveLoadPrincipalMoment(5063)
+                .liveLoadSecundaryMoment(0)
+                .psi_1_Coeff(0.4)
+                .psi_2_Coeff(1)
+                .fck(50)
+                .sectionType("sectionT")
+                .build();
+                
+             double f =    comp.effectivePrestressForce("CP190_127", 145.35, 1547.6);
+                assertEquals(1598.9, f, 1.0);
+    }
 
 }

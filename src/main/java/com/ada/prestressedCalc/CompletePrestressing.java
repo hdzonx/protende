@@ -217,13 +217,13 @@ public class CompletePrestressing {
             force = fissurationForce;
         }
         //Força de protensão final considerando as perdas de protensão
-        return force / (1 + lossOfPrestress);
+        return force / (1 - lossOfPrestress);
     }
 
     protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
         double tendonArea = 0.0;
         if (tendonType.equalsIgnoreCase("CP190_127")) {
-            tendonArea = 1.01;
+            tendonArea = 1.00;
         } else if (tendonType.equalsIgnoreCase("CP190_152")) {
             tendonArea = 1.43;
         } else if (tendonType.equalsIgnoreCase("CP190_157")) {
