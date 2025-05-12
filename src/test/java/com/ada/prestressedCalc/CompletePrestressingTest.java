@@ -99,7 +99,8 @@ public class CompletePrestressingTest {
         double f = comp.forceInServiceabilityLimitState("descompression");
         assertEquals(1083.3, f, 0.1);
     }
-        @Test
+
+    @Test
     void testPrestressedForceTypicalValues_05() throws Exception {
         CompletePrestressing comp = new CompletePrestressing.Builder()
                 .inertia(6.041E5)
