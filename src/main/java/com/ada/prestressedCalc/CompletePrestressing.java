@@ -220,6 +220,8 @@ public class CompletePrestressing {
         return force / (1 - lossOfPrestress);
     }
 
+
+
     protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
         double tendonArea = 0.0;
         if (tendonType.equalsIgnoreCase("CP190_127")) {
