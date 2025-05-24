@@ -12,11 +12,10 @@ import javax.swing.JOptionPane;
  */
 public class OperatedStressTendonLimite {
 
-    public OperatedStressTendonLimite(double f_ptk, String posTensionOrPreTension, String relaxationType) {
-        operatedStressTendonLimite(f_ptk, posTensionOrPreTension, relaxationType);
+    public OperatedStressTendonLimite() {
     }
 
-    protected double operatedStressTendonLimite(double f_ptk, String posTensionOrPreTension, String relaxationType) {
+    public double run(double f_ptk, String posTensionOrPreTension, String relaxationType) {
         double operatedStress;
         if (posTensionOrPreTension.equalsIgnoreCase("posTension")) {
             if (relaxationType.equalsIgnoreCase("normal")) {

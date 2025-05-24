@@ -4,6 +4,7 @@
  */
 package com.ada.prestressedCalc;
 
+import com.ada.protende.OperatedStressTendonLimite;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,8 +24,13 @@ public class CompletePrestressing {
     private final double liveLoadSecundaryMoment;//kNcm
     private final double psi_1_Coeff;
     private final double psi_2_Coeff;
-    private final double fck; // kN/cm²
+    private final double fck; // kN/cm²     
     private final String sectionType;
+    private final String tendonType;
+    private final double lossPrestress;
+    private final double f_ptk;
+    private final String posTensionOrPreTension;
+    private final String relaxationType;
 
     public CompletePrestressing(Builder builder) {
         inertia = builder.inertia;
@@ -40,6 +46,11 @@ public class CompletePrestressing {
         psi_2_Coeff = builder.psi_2_Coeff;
         fck = builder.fck;
         sectionType = builder.sectionType;
+        tendonType = builder.tendonType;
+        lossPrestress = builder.lossPrestress;
+        f_ptk = builder.f_ptk;
+        posTensionOrPreTension = builder.posTensionOrPreTension;
+        relaxationType = builder.relaxationType;
 
     }
 
@@ -58,6 +69,11 @@ public class CompletePrestressing {
         private double psi_2_Coeff = 0.0;
         private double fck = 0.0;
         private String sectionType = "";
+        private String tendonType = "";
+        private double lossPrestress = 0.0;
+        private double f_ptk = 0.0;
+        private String posTensionOrPreTension = "";
+        private String relaxationType = "";
 
         public Builder inertia(double val) {
             inertia = val;
@@ -121,6 +137,31 @@ public class CompletePrestressing {
 
         public Builder sectionType(String val) {
             sectionType = val;
+            return this;
+        }
+
+        public Builder tendonType(String val) {
+            tendonType = val;
+            return this;
+        }
+
+        public Builder lossPrestress(double val) {
+            lossPrestress = val;
+            return this;
+        }
+
+        public Builder f_ptk(double val) {
+            f_ptk = val;
+            return this;
+        }
+
+        public Builder posTensionOrPreTension(String val) {
+            posTensionOrPreTension = val;
+            return this;
+        }
+
+        public Builder relaxationType(String val) {
+            relaxationType = val;
             return this;
         }
 
@@ -220,8 +261,6 @@ public class CompletePrestressing {
         return force / (1 - lossOfPrestress);
     }
 
-
-
     protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
         double tendonArea = 0.0;
         if (tendonType.equalsIgnoreCase("CP190_127")) {
@@ -243,6 +282,13 @@ public class CompletePrestressing {
         double effectiveArea = numberTendons * tendonArea;
         return effectiveArea * operatedStressTendonLimite;
 
+    }
+
+    protected void run() throws Exception {
+        double finalForceWithLoss = finalForceWithLossPrestress(lossPrestress);
+        OperatedStressTendonLimite limite = new OperatedStressTendonLimite();
+        double operatedStress = limite.run(f_ptk, posTensionOrPreTension, relaxationType);
+        double effectivePrestressForce = effectivePrestressForce(tendonType, operatedStress, finalForceWithLoss);
     }
 
 }
