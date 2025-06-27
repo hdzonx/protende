@@ -31,6 +31,7 @@ public class CompletePrestressing {
     private final double f_ptk;
     private final String posTensionOrPreTension;
     private final String relaxationType;
+    private final String typePrestressing;
 
     public CompletePrestressing(Builder builder) {
         inertia = builder.inertia;
@@ -51,6 +52,7 @@ public class CompletePrestressing {
         f_ptk = builder.f_ptk;
         posTensionOrPreTension = builder.posTensionOrPreTension;
         relaxationType = builder.relaxationType;
+        typePrestressing = builder.typePrestressing;
 
     }
 
@@ -58,22 +60,23 @@ public class CompletePrestressing {
 
         private double inertia = 0.0;
         private double area = 0.0;
-        private double prestressingExcentricity = 0.0;
-        private double inferiorFiberDistance = 0.0;
-        private double superiorFiberDistance = 0.0;
-        private double selfLoadMoment = 0.0;
-        private double othersDeadLoad = 0.0;
-        private double liveLoadPrincipalMoment = 0.0;
-        private double liveLoadSecundaryMoment = 0.0;
-        private double psi_1_Coeff = 0.0;
-        private double psi_2_Coeff = 0.0;
-        private double fck = 0.0;
-        private String sectionType = "";
-        private String tendonType = "";
-        private double lossPrestress = 0.0;
-        private double f_ptk = 0.0;
-        private String posTensionOrPreTension = "";
-        private String relaxationType = "";
+        private double prestressingExcentricity;
+        private double inferiorFiberDistance;
+        private double superiorFiberDistance;
+        private double selfLoadMoment;
+        private double othersDeadLoad;
+        private double liveLoadPrincipalMoment;
+        private double liveLoadSecundaryMoment;
+        private double psi_1_Coeff;
+        private double psi_2_Coeff;
+        private double fck;
+        private String sectionType;
+        private String tendonType;
+        private double lossPrestress;
+        private double f_ptk;
+        private String posTensionOrPreTension;
+        private String relaxationType;
+        private String typePrestressing;
 
         public Builder inertia(double val) {
             inertia = val;
@@ -165,6 +168,11 @@ public class CompletePrestressing {
             return this;
         }
 
+        public Builder typePrestressing(String val) {
+            typePrestressing = val;
+            return this;
+        }
+
         public CompletePrestressing build() {
             return new CompletePrestressing(this);
         }
@@ -218,23 +226,47 @@ public class CompletePrestressing {
 
         double force = 0.0;
         if (limiteStateType.equalsIgnoreCase("descompression")) {
+            double factor1;
+            double factor2;
+            if (typePrestressing.equalsIgnoreCase("Total")) {
+                factor1 = psi_1_Coeff;
+                factor2 = psi_2_Coeff;
+            } else if (typePrestressing.equalsIgnoreCase("Limited")) {
+                factor1 = psi_2_Coeff;
+                factor2 = psi_2_Coeff;
+            } else {
+                JOptionPane.showMessageDialog(null, "Tipo de protensão não identificado.");
+                throw new Exception("Type prestressing not found.");
+            }
             //tensão de protensão em relação às fibras inferiores para o Estado Limite de Descompressão
-            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + psi_1_Coeff * liveLoadPrincipalStressInf + psi_2_Coeff * liveLoadSecundaryStressInf;
+            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + factor1 * liveLoadPrincipalStressInf + factor2 * liveLoadSecundaryStressInf;
             force = prestressedForce(prestresStressInf, inferiorFiberDistance);
             //verificação das tensões de tração (topo da viga) para o Estado Limite de Descompressão
             double prestressStressSup = prestressedStressSup(force, superiorFiberDistance);
-            double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + psi_1_Coeff * liveLoadPrincipalStressSup + psi_2_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
+            double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + factor1 * liveLoadPrincipalStressSup + factor2 * liveLoadSecundaryStressSup - prestressStressSup;
             //Verificação do Estado Limite de Descompressão
             if (totalCompressionStress > 0.5 * fck) {
                 JOptionPane.showMessageDialog(null, "Não atende ao estado limite de descompressão");
                 throw new Exception("Does not meet the decompression limit state");
             }
         } else if (limiteStateType.equalsIgnoreCase("fissuration")) {
+            double factor1;
+            double factor2;
+            if (typePrestressing.equalsIgnoreCase("Total")) {
+                factor1 = 1.0;
+                factor2 = psi_1_Coeff;
+            } else if (typePrestressing.equalsIgnoreCase("Limited")) {
+                factor1 = psi_1_Coeff;
+                factor2 = psi_2_Coeff;
+            } else {
+                JOptionPane.showMessageDialog(null, "Tipo de protensão não identificado.");
+                throw new Exception("Type prestressing not found.");
+            }
             //Tensão de protensão nas fibras inferiores parao Estado Limite de Formação de Fissuras
-            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + liveLoadPrincipalStressInf + psi_1_Coeff * liveLoadSecundaryStressInf - concreteStressTension();
+            double prestresStressInf = selfLoadStressInf + othersDeadStressInf + factor1 * liveLoadPrincipalStressInf + factor2 * liveLoadSecundaryStressInf - concreteStressTension();
             force = prestressedForce(prestresStressInf, inferiorFiberDistance);
             double prestressStressSup = prestressedStressSup(force, superiorFiberDistance);
-            double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + liveLoadPrincipalStressSup + psi_1_Coeff * liveLoadSecundaryStressSup - prestressStressSup;
+            double totalCompressionStress = selfLoadStressSup + othersDeadStressSup + factor1 * liveLoadPrincipalStressSup + factor2 * liveLoadSecundaryStressSup - prestressStressSup;
             if (totalCompressionStress > 0.5 * fck) {
                 JOptionPane.showMessageDialog(null, "Não atende ao estado limite de fissuração");
                 throw new Exception("Does not meet the fissuration limit state");
