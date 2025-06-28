@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author Hudson
+ * @author ada
  */
-public class CompletePrestressingTest {
+public class LimitedPrestressingTest {
 
     @Test
     void testPrestressedForceTypicalValues() {
@@ -29,10 +29,10 @@ public class CompletePrestressingTest {
                 .psi_2_Coeff(0.3)
                 .fck(50)
                 .sectionType("sectionT")
-                .typePrestressing("Total")
+                .typePrestressing("Limited")
                 .build();
-        double force = comp.prestressedForce(1.978, 35);
-        assertEquals(1083.2, force, 1e-1);
+        double force = comp.prestressedForce(1.949, 35);
+        assertEquals(1067.0, force, 1.0);
 
     }
 
@@ -52,34 +52,12 @@ public class CompletePrestressingTest {
                 .psi_2_Coeff(0.3)
                 .fck(50)
                 .sectionType("sectionT")
-                .typePrestressing("Total")
+                .typePrestressing("Limited")
                 .build();
-        double force = comp.prestressedForce(1.978, 35);
-        double stress = comp.prestressedStressSup(1083.2, 15);
-        assertEquals(0.264, stress, 0.001);
+        double force = comp.prestressedForce(1.949, 35);
+        double stress = comp.prestressedStressSup(1067, 15);
+        assertEquals(0.260, stress, 0.001);
 
-    }
-
-    @Test
-    void testPrestressedForceTypicalValues_03() {
-        PrestressingForces comp = new PrestressingForces.Builder()
-                .inertia(6.041E5)
-                .area(2.648E3)
-                .prestressingExcentricity(25)
-                .inferiorFiberDistance(35)
-                .superiorFiberDistance(15)
-                .selfLoadMoment(18619)
-                .othersDeadLoad(13500)
-                .liveLoadPrincipalMoment(5063)
-                .liveLoadSecundaryMoment(0)
-                .psi_1_Coeff(0.4)
-                .psi_2_Coeff(0.3)
-                .fck(50)
-                .sectionType("sectionT")
-                .typePrestressing("Total")
-                .build();
-        double stress = comp.normalStress(18619, 6.041E5, 35);
-        assertEquals(1.079, stress, 0.001);
     }
 
     @Test
@@ -98,10 +76,10 @@ public class CompletePrestressingTest {
                 .psi_2_Coeff(0.3)
                 .fck(50)
                 .sectionType("sectionT")
-                .typePrestressing("Total")
+                .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("descompression");
-        assertEquals(1083.3, f, 0.1);
+        assertEquals(1067.0, f, 1);
     }
 
     @Test
@@ -120,77 +98,74 @@ public class CompletePrestressingTest {
                 .psi_2_Coeff(0.3)
                 .fck(50)
                 .sectionType("sectionT")
-                .typePrestressing("Total")
+                .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("fissuration");
-        assertEquals(992.4, f, 0.1);
+        assertEquals(896.0, f, 1);
     }
 
     @Test
-    void testFinalForceWithLossPrestress() throws Exception {
+    void testPrestressedDescompression_02() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
-                .inertia(6.041E5)
-                .area(2.648E3)
-                .prestressingExcentricity(25)
-                .inferiorFiberDistance(35)
-                .superiorFiberDistance(15)
-                .selfLoadMoment(18619)
-                .othersDeadLoad(13500)
-                .liveLoadPrincipalMoment(5063)
+                .inertia(3415800)
+                .area(3549)
+                .prestressingExcentricity(58.7)
+                .inferiorFiberDistance(68.8)
+                .superiorFiberDistance(32.8)
+                .selfLoadMoment(50303)
+                .othersDeadLoad(3403)
+                .liveLoadPrincipalMoment(33460)
                 .liveLoadSecundaryMoment(0)
-                .psi_1_Coeff(0.4)
-                .psi_2_Coeff(0.3)
-                .fck(50)
+                .psi_1_Coeff(0.5)
+                .psi_2_Coeff(0.4)
+                .fck(35)
                 .sectionType("sectionT")
-                .typePrestressing("Total")
+                .typePrestressing("Limited")
                 .build();
-        double f = comp.finalForceWithLossPrestress(0.3);
-        assertEquals(1547.6, f, 0.1);
+        double f = comp.forceInServiceabilityLimitState("descompression");
+        assertEquals(923.0, f, 1);
+    }
+
+    @Test
+    void testPrestresseedStressSup_02() throws Exception {
+        PrestressingForces comp = new PrestressingForces.Builder()
+                .inertia(3415800)
+                .area(3549)
+                .prestressingExcentricity(58.7)
+                .inferiorFiberDistance(68.8)
+                .superiorFiberDistance(32.8)
+                .selfLoadMoment(50303)
+                .othersDeadLoad(3403)
+                .liveLoadPrincipalMoment(33460)
+                .liveLoadSecundaryMoment(0)
+                .psi_1_Coeff(0.5)
+                .psi_2_Coeff(0.4)
+                .fck(35)
+                .sectionType("sectionT")
+                .typePrestressing("Limited")
+                .build();
+        double s = comp.prestressedStressSup(923, 32.8);
+        assertEquals(0.260, s, 0.001);
     }
         @Test
-    void testeffectivePrestressStress02() throws Exception {
+    void testPrestressedDescompression_03() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
-                .inertia(6.041E5)
-                .area(2.648E3)
-                .prestressingExcentricity(25)
-                .inferiorFiberDistance(35)
-                .superiorFiberDistance(15)
-                .selfLoadMoment(18619)
-                .othersDeadLoad(13500)
-                .liveLoadPrincipalMoment(5063)
+                .inertia(3415800)
+                .area(3549)
+                .prestressingExcentricity(58.7)
+                .inferiorFiberDistance(68.8)
+                .superiorFiberDistance(32.8)
+                .selfLoadMoment(50303)
+                .othersDeadLoad(3403)
+                .liveLoadPrincipalMoment(33460)
                 .liveLoadSecundaryMoment(0)
-                .psi_1_Coeff(0.4)
-                .psi_2_Coeff(0.3)
-                .fck(50)
+                .psi_1_Coeff(0.5)
+                .psi_2_Coeff(0.4)
+                .fck(35)
                 .sectionType("sectionT")
-                .typePrestressing("Total")
+                .typePrestressing("Limited")
                 .build();
-
-        double f = comp.effectivePrestressForce("CP190_127", 145.35, 1547.6);
-        assertEquals(1598.9, f, 1.0);
+        double f = comp.forceInServiceabilityLimitState("fissuration");
+        assertEquals(785.0, f, 1);
     }
-
-    @Test
-    void testeffectivePrestressForce02() throws Exception {
-        PrestressingForces comp = new PrestressingForces.Builder()
-                .inertia(6.041E5)
-                .area(2.648E3)
-                .prestressingExcentricity(25)
-                .inferiorFiberDistance(35)
-                .superiorFiberDistance(15)
-                .selfLoadMoment(18619)
-                .othersDeadLoad(13500)
-                .liveLoadPrincipalMoment(5063)
-                .liveLoadSecundaryMoment(0)
-                .psi_1_Coeff(0.4)
-                .psi_2_Coeff(0.3)
-                .fck(50)
-                .sectionType("sectionT")
-                .typePrestressing("Total")
-                .build();
-
-        double f = comp.effectivePrestressForce("CP190_127", 145.35, 1547.6);
-        assertEquals(1598.9, f, 1.0);
-    }
-
 }

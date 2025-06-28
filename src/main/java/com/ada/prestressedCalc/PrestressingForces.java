@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Hudson
  */
-public class CompletePrestressing {
+public class PrestressingForces {
 
     private final double inertia; //cm4
     private final double area;//cm²
@@ -33,7 +33,7 @@ public class CompletePrestressing {
     private final String relaxationType;
     private final String typePrestressing;
 
-    public CompletePrestressing(Builder builder) {
+    public PrestressingForces(Builder builder) {
         inertia = builder.inertia;
         area = builder.area;
         prestressingExcentricity = builder.prestressingExcentricity;
@@ -173,8 +173,8 @@ public class CompletePrestressing {
             return this;
         }
 
-        public CompletePrestressing build() {
-            return new CompletePrestressing(this);
+        public PrestressingForces build() {
+            return new PrestressingForces(this);
         }
 
     }
