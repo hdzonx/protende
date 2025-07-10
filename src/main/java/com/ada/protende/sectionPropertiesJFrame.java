@@ -42,6 +42,7 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         sectionTButton = new javax.swing.JRadioButton();
         sectionIButton = new javax.swing.JRadioButton();
         rectangularSectionButton = new javax.swing.JRadioButton();
+        confirmPropertiesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(297, 550));
@@ -107,6 +108,10 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         getContentPane().add(rectangularSectionButton);
         rectangularSectionButton.setBounds(60, 130, 170, 21);
 
+        confirmPropertiesButton.setText("Confirmar");
+        getContentPane().add(confirmPropertiesButton);
+        confirmPropertiesButton.setBounds(129, 460, 100, 27);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +152,7 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmPropertiesButton;
     private javax.swing.JTextField inertiaText;
     private javax.swing.JTextField inferiorFiberDistanceText;
     private javax.swing.JLabel jLabel1;

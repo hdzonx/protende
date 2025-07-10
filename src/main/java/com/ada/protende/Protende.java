@@ -30,6 +30,5 @@ public class Protende {
 
     public static void main(String[] args) {
         new ProtendeJFrame().setVisible(true);
-        DataValues data = new DataValues(0);
     }
 }

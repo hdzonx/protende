@@ -47,6 +47,7 @@ public class LoadJFrame extends javax.swing.JFrame {
         psi_1_CoeffTextField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        confirmLoadButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 390));
@@ -128,6 +129,10 @@ public class LoadJFrame extends javax.swing.JFrame {
         getContentPane().add(jSeparator2);
         jSeparator2.setBounds(0, 50, 400, 160);
 
+        confirmLoadButton.setText("Confirmar");
+        getContentPane().add(confirmLoadButton);
+        confirmLoadButton.setBounds(269, 290, 110, 27);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -168,6 +173,7 @@ public class LoadJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmLoadButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

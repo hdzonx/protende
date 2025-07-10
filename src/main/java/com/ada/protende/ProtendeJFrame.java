@@ -4,6 +4,8 @@
  */
 package com.ada.protende;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author olgierd
@@ -31,25 +33,26 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        completePrestressingRadioBtn = new javax.swing.JRadioButton();
+        limitedPrestressingRadioBtn = new javax.swing.JRadioButton();
+        partialPrestressingRadioBtn = new javax.swing.JRadioButton();
+        preTensionRadioBtn = new javax.swing.JRadioButton();
+        bondedPostTensionRadioBtn = new javax.swing.JRadioButton();
+        non_bondedPostTensionRadioBtn = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
+        calculatePrestressingButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        newFileMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        materialMenu = new javax.swing.JMenuItem();
+        geometryMenu = new javax.swing.JMenuItem();
+        loadMenu = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        aboutMenu = new javax.swing.JMenuItem();
+        manualMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(890, 600));
@@ -71,35 +74,35 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(30, 90, 110, 16);
 
-        prestressedTypeGroup.add(jRadioButton1);
-        jRadioButton1.setText("Completa");
-        getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(50, 120, 120, 21);
+        prestressedTypeGroup.add(completePrestressingRadioBtn);
+        completePrestressingRadioBtn.setText("Completa");
+        getContentPane().add(completePrestressingRadioBtn);
+        completePrestressingRadioBtn.setBounds(50, 120, 120, 21);
 
-        prestressedTypeGroup.add(jRadioButton2);
-        jRadioButton2.setText("Limitada");
-        getContentPane().add(jRadioButton2);
-        jRadioButton2.setBounds(50, 150, 110, 21);
+        prestressedTypeGroup.add(limitedPrestressingRadioBtn);
+        limitedPrestressingRadioBtn.setText("Limitada");
+        getContentPane().add(limitedPrestressingRadioBtn);
+        limitedPrestressingRadioBtn.setBounds(50, 150, 110, 21);
 
-        prestressedTypeGroup.add(jRadioButton3);
-        jRadioButton3.setText("Parcial");
-        getContentPane().add(jRadioButton3);
-        jRadioButton3.setBounds(50, 180, 110, 21);
+        prestressedTypeGroup.add(partialPrestressingRadioBtn);
+        partialPrestressingRadioBtn.setText("Parcial");
+        getContentPane().add(partialPrestressingRadioBtn);
+        partialPrestressingRadioBtn.setBounds(50, 180, 110, 21);
 
-        executiveTypeGroup.add(jRadioButton4);
-        jRadioButton4.setText("Armadura pré-tracionada");
-        getContentPane().add(jRadioButton4);
-        jRadioButton4.setBounds(500, 120, 180, 21);
+        executiveTypeGroup.add(preTensionRadioBtn);
+        preTensionRadioBtn.setText("Armadura pré-tracionada");
+        getContentPane().add(preTensionRadioBtn);
+        preTensionRadioBtn.setBounds(500, 120, 180, 21);
 
-        executiveTypeGroup.add(jRadioButton5);
-        jRadioButton5.setText("Armadura pós-tracionada aderente");
-        getContentPane().add(jRadioButton5);
-        jRadioButton5.setBounds(500, 150, 230, 21);
+        executiveTypeGroup.add(bondedPostTensionRadioBtn);
+        bondedPostTensionRadioBtn.setText("Armadura pós-tracionada aderente");
+        getContentPane().add(bondedPostTensionRadioBtn);
+        bondedPostTensionRadioBtn.setBounds(500, 150, 230, 21);
 
-        executiveTypeGroup.add(jRadioButton6);
-        jRadioButton6.setText("Armadura pós-tracionada não aderente");
-        getContentPane().add(jRadioButton6);
-        jRadioButton6.setBounds(500, 180, 250, 21);
+        executiveTypeGroup.add(non_bondedPostTensionRadioBtn);
+        non_bondedPostTensionRadioBtn.setText("Armadura pós-tracionada não aderente");
+        getContentPane().add(non_bondedPostTensionRadioBtn);
+        non_bondedPostTensionRadioBtn.setBounds(500, 180, 250, 21);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator1);
@@ -113,53 +116,62 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(490, 90, 110, 16);
 
+        calculatePrestressingButton.setText("Calcular");
+        calculatePrestressingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculatePrestressingButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(calculatePrestressingButton);
+        calculatePrestressingButton.setBounds(30, 240, 90, 27);
+
         jMenu1.setText("Arquivo");
 
-        jMenuItem4.setText("Novo");
-        jMenu1.add(jMenuItem4);
+        newFileMenu.setText("Novo");
+        jMenu1.add(newFileMenu);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Dados");
 
-        jMenuItem1.setText("Material");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        materialMenu.setText("Material");
+        materialMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                materialMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(materialMenu);
 
-        jMenuItem3.setText("Geometria");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        geometryMenu.setText("Geometria");
+        geometryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                geometryMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(geometryMenu);
 
-        jMenuItem6.setText("Carregamento");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        loadMenu.setText("Carregamento");
+        loadMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                loadMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jMenu2.add(loadMenu);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Ajuda");
 
-        jMenuItem5.setText("Sobre");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        aboutMenu.setText("Sobre");
+        aboutMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                aboutMenuActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        jMenu3.add(aboutMenu);
 
-        jMenuItem2.setText("Manual");
-        jMenu3.add(jMenuItem2);
+        manualMenu.setText("Manual");
+        jMenu3.add(manualMenu);
 
         jMenuBar1.add(jMenu3);
 
@@ -169,20 +181,54 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        new licenseJFrame().setVisible(true);    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void aboutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuActionPerformed
+        new licenseJFrame().setVisible(true);    }//GEN-LAST:event_aboutMenuActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void materialMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialMenuActionPerformed
         new MaterialJFrame().setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_materialMenuActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void geometryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geometryMenuActionPerformed
         new sectionPropertiesJFrame().setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_geometryMenuActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void loadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuActionPerformed
         new LoadJFrame().setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_loadMenuActionPerformed
+
+    private void calculatePrestressingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatePrestressingButtonActionPerformed
+        String tensionType;
+        String typePrestressing;
+        //type tension analysis
+        if (preTensionRadioBtn.isSelected()) {
+            System.out.println("Pré-tração selecionado");
+            tensionType = "preTension";
+        }
+        if (bondedPostTensionRadioBtn.isSelected()) {
+            System.out.println("Pós-tração com armadura aderente selecionado");
+            tensionType = "bondedPostTension";
+        }
+        if (non_bondedPostTensionRadioBtn.isSelected()) {
+            System.out.println("Pós-tração com armadura não aderente selecionado");
+            tensionType = "non_bondedPostTension";
+        }
+        // type prestressing analysis
+        if (completePrestressingRadioBtn.isSelected()) {
+            System.out.println("Protenção completa");
+            typePrestressing = "complete";
+        }
+        if (limitedPrestressingRadioBtn.isSelected()) {
+            System.out.println("Protenção limitada");
+            typePrestressing = "limited";
+        }
+        if (partialPrestressingRadioBtn.isSelected()) {
+            System.out.println("Protenção partial ainda não implementada");
+            typePrestressing = "partial";
+            JOptionPane.showMessageDialog(null, "Protenção parcial não implementada no programma");
+            throw new IllegalArgumentException("partial prestressing not implemented.");        
+        }
+        
+    }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +266,12 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenu;
+    private javax.swing.JRadioButton bondedPostTensionRadioBtn;
+    private javax.swing.JButton calculatePrestressingButton;
+    private javax.swing.JRadioButton completePrestressingRadioBtn;
     private javax.swing.ButtonGroup executiveTypeGroup;
+    private javax.swing.JMenuItem geometryMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -229,20 +280,16 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JRadioButton limitedPrestressingRadioBtn;
+    private javax.swing.JMenuItem loadMenu;
+    private javax.swing.JMenuItem manualMenu;
+    private javax.swing.JMenuItem materialMenu;
+    private javax.swing.JMenuItem newFileMenu;
+    private javax.swing.JRadioButton non_bondedPostTensionRadioBtn;
+    private javax.swing.JRadioButton partialPrestressingRadioBtn;
+    private javax.swing.JRadioButton preTensionRadioBtn;
     private javax.swing.ButtonGroup prestressedTypeGroup;
     // End of variables declaration//GEN-END:variables
 }
