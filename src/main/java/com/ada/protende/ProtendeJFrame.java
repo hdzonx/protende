@@ -197,8 +197,8 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_loadMenuActionPerformed
 
     private void calculatePrestressingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatePrestressingButtonActionPerformed
-        String tensionType;
-        String typePrestressing;
+        String tensionType = "";
+        String typePrestressing = "";
         //type tension analysis
         if (preTensionRadioBtn.isSelected()) {
             System.out.println("Pré-tração selecionado");
@@ -225,9 +225,18 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             System.out.println("Protenção partial ainda não implementada");
             typePrestressing = "partial";
             JOptionPane.showMessageDialog(null, "Protenção parcial não implementada no programma");
-            throw new IllegalArgumentException("partial prestressing not implemented.");        
+            throw new IllegalArgumentException("partial prestressing not implemented.");
+        }
+        if (tensionType.equals("")) {
+            JOptionPane.showMessageDialog(null, "Tipo método exectivo não selecionado.");
+            throw new IllegalArgumentException("execution type not selected.");
+        }
+        if (typePrestressing.equals("")) {
+            JOptionPane.showMessageDialog(null, "Tipo de protensão não selecionado.");
+            throw new IllegalArgumentException("prestressing type not selected.");
         }
         
+
     }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 
     /**

@@ -4,11 +4,21 @@
  */
 package com.ada.protende;
 
+import javax.swing.JOptionPane;
+import util.Converter;
+
 /**
  *
  * @author olgierd
  */
 public class sectionPropertiesJFrame extends javax.swing.JFrame {
+
+    private String sectionType;
+    private double areaSection;
+    private double inertia;
+    private double inferiorFiberDist;
+    private double superiorFiberDist;
+    private double prestressExcentricity;
 
     /**
      * Creates new form sectionPropertiesJFrame
@@ -39,9 +49,9 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         superiorFiberDistance = new javax.swing.JTextField();
         prestressedExcentricityText = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        sectionTButton = new javax.swing.JRadioButton();
-        sectionIButton = new javax.swing.JRadioButton();
-        rectangularSectionButton = new javax.swing.JRadioButton();
+        sectionTRadioBtn = new javax.swing.JRadioButton();
+        section_I_RadioBtn = new javax.swing.JRadioButton();
+        rectangularSectionRadioBtn = new javax.swing.JRadioButton();
         confirmPropertiesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -77,7 +87,7 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Propriedades da seção");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(0, 0, 300, 24);
+        jLabel6.setBounds(0, 0, 300, 23);
         getContentPane().add(sectionAreaText);
         sectionAreaText.setBounds(130, 200, 100, 30);
         getContentPane().add(inertiaText);
@@ -93,29 +103,87 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(40, 30, 220, 140);
 
-        sectionTypeButtonGroup.add(sectionTButton);
-        sectionTButton.setText("seção T ou duplo T");
-        getContentPane().add(sectionTButton);
-        sectionTButton.setBounds(60, 70, 190, 21);
+        sectionTypeButtonGroup.add(sectionTRadioBtn);
+        sectionTRadioBtn.setText("seção T ou duplo T");
+        getContentPane().add(sectionTRadioBtn);
+        sectionTRadioBtn.setBounds(60, 70, 190, 24);
 
-        sectionTypeButtonGroup.add(sectionIButton);
-        sectionIButton.setText("seção I ou T invertido");
-        getContentPane().add(sectionIButton);
-        sectionIButton.setBounds(60, 100, 190, 21);
+        sectionTypeButtonGroup.add(section_I_RadioBtn);
+        section_I_RadioBtn.setText("seção I ou T invertido");
+        getContentPane().add(section_I_RadioBtn);
+        section_I_RadioBtn.setBounds(60, 100, 190, 24);
 
-        sectionTypeButtonGroup.add(rectangularSectionButton);
-        rectangularSectionButton.setText("seção Retangular");
-        getContentPane().add(rectangularSectionButton);
-        rectangularSectionButton.setBounds(60, 130, 170, 21);
+        sectionTypeButtonGroup.add(rectangularSectionRadioBtn);
+        rectangularSectionRadioBtn.setText("seção Retangular");
+        getContentPane().add(rectangularSectionRadioBtn);
+        rectangularSectionRadioBtn.setBounds(60, 130, 170, 24);
 
         confirmPropertiesButton.setText("Confirmar");
+        confirmPropertiesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmPropertiesButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(confirmPropertiesButton);
-        confirmPropertiesButton.setBounds(129, 460, 100, 27);
+        confirmPropertiesButton.setBounds(129, 460, 100, 26);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void confirmPropertiesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPropertiesButtonActionPerformed
+         sectionType = "";
+        if (sectionTRadioBtn.isSelected()) {
+            System.out.println("Seção T ou duplo T.");
+            sectionType = "sectionT";
+        }
+        if (section_I_RadioBtn.isSelected()) {
+            System.out.println("Seção I.");
+            sectionType = "section_I";
+        }
+        if (rectangularSectionRadioBtn.isSelected()) {
+            System.out.println("Seção retangular.");
+            sectionType = "rectangular";
+
+        }
+
+        if (sectionType.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Tipo da seção não selecionado.");
+            throw new IllegalArgumentException("section type not selected.");
+        }
+
+         areaSection = Converter.textToDouble(sectionAreaText);
+         inertia = Converter.textToDouble(inertiaText);
+         inferiorFiberDist = Converter.textToDouble(inferiorFiberDistanceText);
+         superiorFiberDist = Converter.textToDouble(superiorFiberDistance);
+         prestressExcentricity = Converter.textToDouble(prestressedExcentricityText);
+    }//GEN-LAST:event_confirmPropertiesButtonActionPerformed
+
+    public String getSectionType() {
+        return sectionType;
+    }
+
+    public double getAreaSection() {
+        return areaSection;
+    }
+
+    public double getInertia() {
+        return inertia;
+    }
+
+    public double getInferiorFiberDist() {
+        return inferiorFiberDist;
+    }
+
+    public double getSuperiorFiberDist() {
+        return superiorFiberDist;
+    }
+
+    public double getPrestressExcentricity() {
+        return prestressExcentricity;
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -163,11 +231,11 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField prestressedExcentricityText;
-    private javax.swing.JRadioButton rectangularSectionButton;
+    private javax.swing.JRadioButton rectangularSectionRadioBtn;
     private javax.swing.JTextField sectionAreaText;
-    private javax.swing.JRadioButton sectionIButton;
-    private javax.swing.JRadioButton sectionTButton;
+    private javax.swing.JRadioButton sectionTRadioBtn;
     private javax.swing.ButtonGroup sectionTypeButtonGroup;
+    private javax.swing.JRadioButton section_I_RadioBtn;
     private javax.swing.JTextField superiorFiberDistance;
     // End of variables declaration//GEN-END:variables
 }
