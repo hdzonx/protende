@@ -12,6 +12,10 @@ import javax.swing.JOptionPane;
  */
 public class ProtendeJFrame extends javax.swing.JFrame {
 
+    private SectionPropertiesJFrame sectionFrame;
+    private MaterialJFrame materialFrame;
+    private LoadJFrame loadFrame;
+
     /**
      * Creates new form ProtendeJFrame
      */
@@ -184,16 +188,26 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     private void aboutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuActionPerformed
         new licenseJFrame().setVisible(true);    }//GEN-LAST:event_aboutMenuActionPerformed
 
+
     private void materialMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialMenuActionPerformed
-        new MaterialJFrame().setVisible(true);
+        if (materialFrame == null) {
+            materialFrame = new MaterialJFrame();
+        }
+        materialFrame.setVisible(true);
     }//GEN-LAST:event_materialMenuActionPerformed
 
     private void geometryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geometryMenuActionPerformed
-        new sectionPropertiesJFrame().setVisible(true);
+        if (sectionFrame == null) {
+            sectionFrame = new SectionPropertiesJFrame();
+        }
+        sectionFrame.setVisible(true);
     }//GEN-LAST:event_geometryMenuActionPerformed
 
     private void loadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuActionPerformed
-        new LoadJFrame().setVisible(true);
+        if (loadFrame == null) {
+            loadFrame = new LoadJFrame();
+        }
+        loadFrame.setVisible(true);
     }//GEN-LAST:event_loadMenuActionPerformed
 
     private void calculatePrestressingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatePrestressingButtonActionPerformed
@@ -235,7 +249,26 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Tipo de protensão não selecionado.");
             throw new IllegalArgumentException("prestressing type not selected.");
         }
-        
+
+        double area;
+        double inertia;
+        double excentricity;
+        double superiorDist;
+        double inferiorDist;
+        String sectionType;
+
+        try {
+            area = sectionFrame.getAreaSection();
+            inertia = sectionFrame.getInertia();
+            excentricity = sectionFrame.getPrestressExcentricity();
+            superiorDist = sectionFrame.getSuperiorFiberDist();
+            inferiorDist = sectionFrame.getInferiorFiberDist();
+            sectionType = sectionFrame.getSectionType();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha as propriedades da seção transversal");
+            e.printStackTrace();
+        }
+
 
     }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 
@@ -267,10 +300,8 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProtendeJFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ProtendeJFrame().setVisible(true);
         });
     }
 

@@ -11,7 +11,7 @@ import util.Converter;
  *
  * @author olgierd
  */
-public class sectionPropertiesJFrame extends javax.swing.JFrame {
+public class SectionPropertiesJFrame extends javax.swing.JFrame {
 
     private String sectionType;
     private double areaSection;
@@ -23,7 +23,7 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
     /**
      * Creates new form sectionPropertiesJFrame
      */
-    public sectionPropertiesJFrame() {
+    public SectionPropertiesJFrame() {
         initComponents();
     }
 
@@ -157,6 +157,9 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
          inferiorFiberDist = Converter.textToDouble(inferiorFiberDistanceText);
          superiorFiberDist = Converter.textToDouble(superiorFiberDistance);
          prestressExcentricity = Converter.textToDouble(prestressedExcentricityText);
+         System.out.println("Salvando dados de propriedades das seções...");
+         //Fecha a JFrame sem perder os dados
+         dispose();
     }//GEN-LAST:event_confirmPropertiesButtonActionPerformed
 
     public String getSectionType() {
@@ -201,20 +204,21 @@ public class sectionPropertiesJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(sectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(sectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(sectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(sectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SectionPropertiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new sectionPropertiesJFrame().setVisible(true);
+                new SectionPropertiesJFrame().setVisible(true);
             }
         });
     }
