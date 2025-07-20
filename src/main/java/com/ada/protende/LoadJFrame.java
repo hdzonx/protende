@@ -4,6 +4,8 @@
  */
 package com.ada.protende;
 
+import util.Converter;
+
 /**
  *
  * @author ada
@@ -16,6 +18,13 @@ public class LoadJFrame extends javax.swing.JFrame {
     public LoadJFrame() {
         initComponents();
     }
+
+    private double selfLoadMoment;
+    private double othersDeadLoadMoment;
+    private double principalLiveLoadMoment;
+    private double othersLiveLoadMoment;
+    private double psi_1;
+    private double psi_2;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,29 +86,29 @@ public class LoadJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("kNm");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(330, 80, 26, 16);
+        jLabel6.setBounds(330, 80, 40, 23);
 
         jLabel7.setText("kNm");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(330, 110, 26, 16);
+        jLabel7.setBounds(330, 110, 40, 23);
 
         jLabel8.setText("kNm");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(330, 140, 26, 16);
+        jLabel8.setBounds(330, 140, 40, 23);
 
         jLabel9.setText("kNm");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(330, 170, 26, 16);
+        jLabel9.setBounds(330, 170, 40, 23);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Coeficientes de ponderação no Estado Limite de Serviço");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(0, 220, 400, 16);
+        jLabel10.setBounds(0, 220, 400, 14);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Momentos fletores");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(0, 30, 400, 16);
+        jLabel11.setBounds(0, 30, 400, 14);
 
         jLabel12.setText("<html> &#968<sub>2<sub>");
         getContentPane().add(jLabel12);
@@ -107,19 +116,19 @@ public class LoadJFrame extends javax.swing.JFrame {
 
         jLabel13.setText("<html> &#968<sub>1<sub>");
         getContentPane().add(jLabel13);
-        jLabel13.setBounds(10, 260, 20, 22);
+        jLabel13.setBounds(10, 260, 20, 30);
         getContentPane().add(selfLoadTextFiled);
-        selfLoadTextFiled.setBounds(200, 80, 90, 26);
+        selfLoadTextFiled.setBounds(200, 80, 90, 31);
         getContentPane().add(othersDeadLoadTextField);
-        othersDeadLoadTextField.setBounds(200, 110, 90, 26);
+        othersDeadLoadTextField.setBounds(200, 110, 90, 31);
         getContentPane().add(liveLoadPrincipalMomentTextField);
-        liveLoadPrincipalMomentTextField.setBounds(200, 140, 90, 26);
+        liveLoadPrincipalMomentTextField.setBounds(200, 140, 90, 31);
         getContentPane().add(liveLoadSecundaryMomentTextField);
-        liveLoadSecundaryMomentTextField.setBounds(200, 170, 90, 26);
+        liveLoadSecundaryMomentTextField.setBounds(200, 170, 90, 31);
         getContentPane().add(pis_2_coeff_textField);
-        pis_2_coeff_textField.setBounds(50, 290, 68, 26);
+        pis_2_coeff_textField.setBounds(50, 290, 80, 31);
         getContentPane().add(psi_1_CoeffTextField);
-        psi_1_CoeffTextField.setBounds(50, 260, 68, 26);
+        psi_1_CoeffTextField.setBounds(50, 260, 80, 31);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator1);
@@ -130,12 +139,51 @@ public class LoadJFrame extends javax.swing.JFrame {
         jSeparator2.setBounds(0, 50, 400, 160);
 
         confirmLoadButton.setText("Confirmar");
+        confirmLoadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmLoadButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(confirmLoadButton);
-        confirmLoadButton.setBounds(269, 290, 110, 27);
+        confirmLoadButton.setBounds(269, 290, 110, 31);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmLoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmLoadButtonActionPerformed
+        this.selfLoadMoment = Converter.textToDouble(selfLoadTextFiled);
+        this.othersDeadLoadMoment = Converter.textToDouble(othersDeadLoadTextField);
+        this.principalLiveLoadMoment = Converter.textToDouble(liveLoadPrincipalMomentTextField);
+        this.othersLiveLoadMoment = Converter.textToDouble(liveLoadSecundaryMomentTextField);
+        this.psi_1 = Converter.textToDouble(psi_1_CoeffTextField);
+        this.psi_2 = Converter.textToDouble(pis_2_coeff_textField);
+        this.dispose();
+    }//GEN-LAST:event_confirmLoadButtonActionPerformed
+
+    public double getSelfLoadMoment() {
+        return selfLoadMoment;
+    }
+
+    public double getOthersDeadLoadMoment() {
+        return othersDeadLoadMoment;
+    }
+
+    public double getPrincipalLiveLoadMoment() {
+        return principalLiveLoadMoment;
+    }
+
+    public double getOthersLiveLoadMoment() {
+        return othersLiveLoadMoment;
+    }
+
+    public double getPsi_1() {
+        return psi_1;
+    }
+
+    public double getPsi_2() {
+        return psi_2;
+    }
 
     /**
      * @param args the command line arguments

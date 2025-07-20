@@ -269,6 +269,26 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
+        double selfLoadMoment;
+        double othersDeadLoadMoment;
+        double principalLiveLoadMoment;
+        double othersLiveLoadMoment;
+        double psi_1;
+        double psi_2;
+
+        try {
+            selfLoadMoment = loadFrame.getSelfLoadMoment();
+            othersDeadLoadMoment = loadFrame.getOthersDeadLoadMoment();
+            principalLiveLoadMoment = loadFrame.getPrincipalLiveLoadMoment();
+            othersLiveLoadMoment = loadFrame.getOthersLiveLoadMoment();
+            psi_1 = loadFrame.getPsi_1();
+            psi_2 = loadFrame.getPsi_2();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha os valores de cargas de momentos fletores");
+            e.printStackTrace();
+        }
+
 
     }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 
