@@ -59,7 +59,7 @@ public class LoadJFrame extends javax.swing.JFrame {
         confirmLoadButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(400, 390));
+        setMinimumSize(new java.awt.Dimension(400, 450));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Courier 10 Pitch", 0, 18)); // NOI18N
@@ -74,69 +74,69 @@ public class LoadJFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Demais ações permanentes");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 110, 210, 20);
+        jLabel3.setBounds(10, 120, 210, 20);
 
         jLabel4.setText("Ação variável principal");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 140, 170, 20);
+        jLabel4.setBounds(10, 160, 170, 20);
 
         jLabel5.setText("Ação variável secundária");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 170, 190, 20);
+        jLabel5.setBounds(10, 200, 190, 20);
 
         jLabel6.setText("kNm");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(330, 80, 40, 23);
+        jLabel6.setBounds(330, 80, 25, 16);
 
         jLabel7.setText("kNm");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(330, 110, 40, 23);
+        jLabel7.setBounds(330, 120, 26, 16);
 
         jLabel8.setText("kNm");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(330, 140, 40, 23);
+        jLabel8.setBounds(330, 160, 26, 16);
 
         jLabel9.setText("kNm");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(330, 170, 40, 23);
+        jLabel9.setBounds(330, 200, 26, 16);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Coeficientes de ponderação no Estado Limite de Serviço");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(0, 220, 400, 14);
+        jLabel10.setBounds(0, 260, 400, 16);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Momentos fletores");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(0, 30, 400, 14);
+        jLabel11.setBounds(0, 30, 400, 16);
 
         jLabel12.setText("<html> &#968<sub>2<sub>");
         getContentPane().add(jLabel12);
-        jLabel12.setBounds(10, 290, 20, 16);
+        jLabel12.setBounds(10, 330, 20, 16);
 
         jLabel13.setText("<html> &#968<sub>1<sub>");
         getContentPane().add(jLabel13);
-        jLabel13.setBounds(10, 260, 20, 30);
+        jLabel13.setBounds(10, 300, 20, 22);
         getContentPane().add(selfLoadTextFiled);
-        selfLoadTextFiled.setBounds(200, 80, 90, 31);
+        selfLoadTextFiled.setBounds(200, 80, 90, 22);
         getContentPane().add(othersDeadLoadTextField);
-        othersDeadLoadTextField.setBounds(200, 110, 90, 31);
+        othersDeadLoadTextField.setBounds(200, 120, 90, 22);
         getContentPane().add(liveLoadPrincipalMomentTextField);
-        liveLoadPrincipalMomentTextField.setBounds(200, 140, 90, 31);
+        liveLoadPrincipalMomentTextField.setBounds(200, 160, 90, 22);
         getContentPane().add(liveLoadSecundaryMomentTextField);
-        liveLoadSecundaryMomentTextField.setBounds(200, 170, 90, 31);
+        liveLoadSecundaryMomentTextField.setBounds(200, 200, 90, 22);
         getContentPane().add(pis_2_coeff_textField);
-        pis_2_coeff_textField.setBounds(50, 290, 80, 31);
+        pis_2_coeff_textField.setBounds(50, 330, 64, 22);
         getContentPane().add(psi_1_CoeffTextField);
-        psi_1_CoeffTextField.setBounds(50, 260, 80, 31);
+        psi_1_CoeffTextField.setBounds(50, 300, 64, 22);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(0, 240, 400, 90);
+        jSeparator1.setBounds(0, 280, 380, 90);
 
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator2);
-        jSeparator2.setBounds(0, 50, 400, 160);
+        jSeparator2.setBounds(0, 50, 380, 190);
 
         confirmLoadButton.setText("Confirmar");
         confirmLoadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +145,7 @@ public class LoadJFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(confirmLoadButton);
-        confirmLoadButton.setBounds(269, 290, 110, 31);
+        confirmLoadButton.setBounds(270, 330, 100, 23);
 
         pack();
         setLocationRelativeTo(null);

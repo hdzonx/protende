@@ -6,6 +6,7 @@ package com.ada.protende;
 
 import com.ada.prestressedCalc.PrestressedCalc;
 import javax.swing.JOptionPane;
+import util.Converter;
 
 /**
  *
@@ -19,10 +20,11 @@ public class MaterialJFrame extends javax.swing.JFrame {
     public MaterialJFrame() {
         initComponents();
     }
-    private double fck = 0.0;
-    private double tendonDiameter = 0.0;
-    private double tendonTension = 0.0;
-    private double passiveSteelBar = 0.0;
+    private double fck;//resistência característica do concreto
+    private double tendonDiameter;//diâmetro da cordoalha
+    private double tendonTension;//Resistência à tração da cordoalha
+    private double fyk;//resisêtência à tração da armadura passiva
+    private double fckj;//Resistência do concreto no ato da protensão
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,7 +52,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        fck_j_Textfield = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -71,71 +73,71 @@ public class MaterialJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Armadura passiva");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(6, 202, 154, 23);
+        jLabel2.setBounds(6, 202, 190, 16);
 
         jLabel3.setText("Armadura Ativa (cordoalhas engraxadas)");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(6, 269, 351, 23);
+        jLabel3.setBounds(6, 269, 300, 16);
 
         fckButtonGroup.add(C40);
         C40.setText("C40");
         getContentPane().add(C40);
-        C40.setBounds(20, 46, 60, 29);
+        C40.setBounds(20, 46, 60, 21);
 
         fckButtonGroup.add(C45);
         C45.setText("C45");
         getContentPane().add(C45);
-        C45.setBounds(20, 76, 60, 29);
+        C45.setBounds(20, 76, 60, 21);
 
         fckButtonGroup.add(C50);
         C50.setText("C50");
         getContentPane().add(C50);
-        C50.setBounds(20, 106, 60, 29);
+        C50.setBounds(20, 106, 60, 21);
 
         fckButtonGroup.add(C55);
         C55.setText("C55");
         getContentPane().add(C55);
-        C55.setBounds(100, 46, 60, 29);
+        C55.setBounds(100, 46, 60, 21);
 
         fckButtonGroup.add(C60);
         C60.setText("C60");
         getContentPane().add(C60);
-        C60.setBounds(100, 76, 60, 29);
+        C60.setBounds(100, 76, 60, 21);
 
         fckButtonGroup.add(C65);
         C65.setText("C65");
         getContentPane().add(C65);
-        C65.setBounds(100, 106, 60, 29);
+        C65.setBounds(100, 106, 60, 21);
 
         fckButtonGroup.add(C70);
         C70.setText("C70");
         getContentPane().add(C70);
-        C70.setBounds(180, 46, 70, 29);
+        C70.setBounds(180, 46, 70, 21);
 
         fckButtonGroup.add(C75);
         C75.setText("C75");
         getContentPane().add(C75);
-        C75.setBounds(180, 76, 70, 29);
+        C75.setBounds(180, 76, 70, 21);
 
         fckButtonGroup.add(C80);
         C80.setText("C80");
         getContentPane().add(C80);
-        C80.setBounds(180, 106, 70, 29);
+        C80.setBounds(180, 106, 70, 21);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(6, 192, 400, 4);
+        jSeparator1.setBounds(6, 192, 400, 3);
         getContentPane().add(jSeparator2);
-        jSeparator2.setBounds(0, 254, 406, 4);
+        jSeparator2.setBounds(0, 254, 406, 3);
 
         jLabel4.setText("fck,j");
         jLabel4.setToolTipText("Resistência do concreto na data da protensão");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(6, 148, 50, 23);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(66, 148, 100, 31);
+        jLabel4.setBounds(6, 148, 50, 16);
+        getContentPane().add(fck_j_Textfield);
+        fck_j_Textfield.setBounds(66, 148, 100, 22);
 
         jLabel5.setText("fck");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 26, 40, 23);
+        jLabel5.setBounds(10, 26, 40, 16);
 
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,11 +146,11 @@ public class MaterialJFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(190, 410, 100, 31);
+        jButton1.setBounds(190, 410, 100, 23);
 
         jLabel6.setText("CA-50 ");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(6, 228, 60, 23);
+        jLabel6.setBounds(6, 228, 36, 16);
 
         prestressedSteelButtonGroup.add(CP190_127);
         CP190_127.setText("CP 190 RB 12,7 - 7 fios");
@@ -163,7 +165,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
         CP190_152.setText("CP 190 RB 15,2 - 7 fios");
         CP190_152.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(CP190_152);
-        CP190_152.setBounds(14, 337, 190, 29);
+        CP190_152.setBounds(14, 337, 190, 21);
 
         prestressedSteelButtonGroup.add(CP190_157);
         CP190_157.setText("CP 190 RB 15,7 - 7 fios");
@@ -182,7 +184,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
         double fck = 0.0;
         double tendonTension = 0.0;
         double tendonDiameter = 0.0;
-        double passiveSteelBar = 50.0;
+        double fyk = 50.0;
 
         if (C40.isSelected()) {
             fck = 40.0;
@@ -220,15 +222,36 @@ public class MaterialJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione o fck do concreto.");
 
         }
-
         this.fck = fck;
         this.tendonDiameter = tendonDiameter;
         this.tendonTension = tendonTension;
-        this.passiveSteelBar = passiveSteelBar;
-
-
+        this.fyk = fyk; 
+        this.fckj = Converter.textToDouble(fck_j_Textfield);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public double getFck() {
+        return fck;
+    }
+
+    public double getTendonDiameter() {
+        return tendonDiameter;
+    }
+
+    public double getTendonTension() {
+        return tendonTension;
+    }
+
+    public double getFyk() {
+        return fyk;
+    }
+
+    public double getFckj() {
+        return fckj;
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -278,6 +301,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton CP190_152;
     private javax.swing.JRadioButton CP190_157;
     private javax.swing.ButtonGroup fckButtonGroup;
+    private javax.swing.JTextField fck_j_Textfield;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -287,7 +311,6 @@ public class MaterialJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.ButtonGroup prestressedSteelButtonGroup;
     // End of variables declaration//GEN-END:variables
 }

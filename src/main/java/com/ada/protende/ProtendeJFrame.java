@@ -289,6 +289,24 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
+        double fck;
+        double tendonDiameter;
+        double tendonTension;
+        double fyk;
+        double fckj;
+
+        try {
+            fck = materialFrame.getFck();
+            tendonDiameter = materialFrame.getTendonDiameter();
+            tendonTension = materialFrame.getTendonTension();
+            fyk = materialFrame.getFyk();
+            fckj = materialFrame.getFckj();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha as propriedades de material");
+            e.printStackTrace();
+
+        }
+
 
     }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 
