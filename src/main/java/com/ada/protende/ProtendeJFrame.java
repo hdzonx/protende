@@ -4,7 +4,9 @@
  */
 package com.ada.protende;
 
+import com.ada.prestressedCalc.PrestressingForces;
 import javax.swing.JOptionPane;
+import util.Converter;
 
 /**
  *
@@ -47,6 +49,8 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         calculatePrestressingButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        lossOfPrestressingText = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         newFileMenu = new javax.swing.JMenuItem();
@@ -127,7 +131,13 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(calculatePrestressingButton);
-        calculatePrestressingButton.setBounds(30, 240, 90, 27);
+        calculatePrestressingButton.setBounds(30, 290, 90, 23);
+
+        jLabel5.setText("Perda de protensão (%)");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(30, 240, 140, 16);
+        getContentPane().add(lossOfPrestressingText);
+        lossOfPrestressingText.setBounds(170, 240, 80, 20);
 
         jMenu1.setText("Arquivo");
 
@@ -249,13 +259,13 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Tipo de protensão não selecionado.");
             throw new IllegalArgumentException("prestressing type not selected.");
         }
-
-        double area;
-        double inertia;
-        double excentricity;
-        double superiorDist;
-        double inferiorDist;
-        String sectionType;
+        //Section Properties
+        double area = 0.0;
+        double inertia = 0.0;
+        double excentricity = 0.0;
+        double superiorDist = 0.0;
+        double inferiorDist = 0.0;
+        String sectionType = "";
 
         try {
             area = sectionFrame.getAreaSection();
@@ -268,13 +278,13 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Preencha as propriedades da seção transversal");
             e.printStackTrace();
         }
-
-        double selfLoadMoment;
-        double othersDeadLoadMoment;
-        double principalLiveLoadMoment;
-        double othersLiveLoadMoment;
-        double psi_1;
-        double psi_2;
+        //Load Properties
+        double selfLoadMoment = 0.0;
+        double othersDeadLoadMoment = 0.0;
+        double principalLiveLoadMoment = 0.0;
+        double othersLiveLoadMoment = 0.0;
+        double psi_1 = 0.0;
+        double psi_2 = 0.0;
 
         try {
             selfLoadMoment = loadFrame.getSelfLoadMoment();
@@ -288,12 +298,12 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Preencha os valores de cargas de momentos fletores");
             e.printStackTrace();
         }
-
-        double fck;
-        double tendonDiameter;
-        double tendonTension;
-        double fyk;
-        double fckj;
+        //Material Properties
+        double fck = 0.0;
+        double tendonDiameter = 0.0;
+        double tendonTension = 0.0;
+        double fyk = 0.0;
+        double fckj = 0.0;
 
         try {
             fck = materialFrame.getFck();
@@ -305,6 +315,36 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Preencha as propriedades de material");
             e.printStackTrace();
 
+        }
+
+        if (lossOfPrestressingText.equals("")) {
+            JOptionPane.showMessageDialog(null, "Preencha o valor das perdas de protensão totais");
+            throw new IllegalArgumentException("Loss of prestressing cannot be empty");
+        }
+        double lossOfPrestressing = 0.01 * Converter.textToDouble(lossOfPrestressingText);
+
+        PrestressingForces comp = new PrestressingForces.Builder()
+                .inertia(inertia)
+                .area(area)
+                .prestressingExcentricity(excentricity)
+                .inferiorFiberDistance(inferiorDist)
+                .superiorFiberDistance(superiorDist)
+                .selfLoadMoment(selfLoadMoment)
+                .othersDeadLoad(othersDeadLoadMoment)
+                .liveLoadPrincipalMoment(principalLiveLoadMoment)
+                .liveLoadSecundaryMoment(othersLiveLoadMoment)
+                .psi_1_Coeff(psi_1)
+                .psi_2_Coeff(psi_2)
+                .fck(fck)
+                .sectionType(sectionType)
+                .typePrestressing(typePrestressing)
+                .lossPrestress(lossOfPrestressing)
+                .build();
+
+        try {
+            comp.run();
+        } catch (Exception ex) {
+            System.getLogger(ProtendeJFrame.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
 
 
@@ -354,6 +394,7 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -362,6 +403,7 @@ public class ProtendeJFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JRadioButton limitedPrestressingRadioBtn;
     private javax.swing.JMenuItem loadMenu;
+    private javax.swing.JTextField lossOfPrestressingText;
     private javax.swing.JMenuItem manualMenu;
     private javax.swing.JMenuItem materialMenu;
     private javax.swing.JMenuItem newFileMenu;

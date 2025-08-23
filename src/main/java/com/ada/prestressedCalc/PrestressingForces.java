@@ -277,7 +277,7 @@ public class PrestressingForces {
         return force;
     }
 
-    protected double finalForceWithLossPrestress(double lossOfPrestress) throws Exception {
+    protected double finalForceWithLossPrestress() throws Exception {
         double descompressionForce = forceInServiceabilityLimitState("descompression");
         double fissurationForce = forceInServiceabilityLimitState("fissuration");
 
@@ -290,7 +290,7 @@ public class PrestressingForces {
             force = fissurationForce;
         }
         //Força de protensão final considerando as perdas de protensão
-        return force / (1 - lossOfPrestress);
+        return force / (1 - lossPrestress);
     }
 
     protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
@@ -316,11 +316,12 @@ public class PrestressingForces {
 
     }
 
-    protected void run() throws Exception {
-        double finalForceWithLoss = finalForceWithLossPrestress(lossPrestress);
+    public void run() throws Exception {
+        double finalForceWithLoss = finalForceWithLossPrestress();
         OperatedStressTendonLimite limite = new OperatedStressTendonLimite();
         double operatedStress = limite.run(f_ptk, posTensionOrPreTension, relaxationType);
         double effectivePrestressForce = effectivePrestressForce(tendonType, operatedStress, finalForceWithLoss);
+        System.out.println("Força de protensão efetiva = " + effectivePrestressForce);
     }
 
 }

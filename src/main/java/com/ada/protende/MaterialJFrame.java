@@ -150,7 +150,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("CA-50 ");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(6, 228, 36, 16);
+        jLabel6.setBounds(6, 228, 80, 16);
 
         prestressedSteelButtonGroup.add(CP190_127);
         CP190_127.setText("CP 190 RB 12,7 - 7 fios");

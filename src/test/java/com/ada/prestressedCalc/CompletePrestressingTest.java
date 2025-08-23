@@ -143,8 +143,9 @@ public class CompletePrestressingTest {
                 .fck(50)
                 .sectionType("sectionT")
                 .typePrestressing("Total")
+                .lossPrestress(0.3)
                 .build();
-        double f = comp.finalForceWithLossPrestress(0.3);
+        double f = comp.finalForceWithLossPrestress();
         assertEquals(1547.6, f, 0.1);
     }
         @Test
