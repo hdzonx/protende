@@ -258,7 +258,8 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="prestressedSteelButtonGroup"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="CP 190 RB 12,7 - 7 fios"/>
+        <Property name="text" type="java.lang.String" value="CP 190 RB 12,7 - 7 fios (RB)"/>
+        <Property name="toolTipText" type="java.lang.String" value="RB = Relaxa&#xe7;&#xe3;o baixa"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[192, 24]"/>
@@ -272,7 +273,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="14" y="307" width="-1" height="-1"/>
+          <AbsoluteConstraints x="14" y="307" width="290" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -281,12 +282,13 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="prestressedSteelButtonGroup"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="CP 190 RB 15,2 - 7 fios"/>
+        <Property name="text" type="java.lang.String" value="CP 190 RB 15,2 - 7 fios (RB)"/>
+        <Property name="toolTipText" type="java.lang.String" value="RB = Relaxa&#xe7;&#xe3;o baixa"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="14" y="337" width="190" height="-1"/>
+          <AbsoluteConstraints x="14" y="337" width="290" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -295,7 +297,8 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="prestressedSteelButtonGroup"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="CP 190 RB 15,7 - 7 fios"/>
+        <Property name="text" type="java.lang.String" value="CP 190 RB 15,7 - 7 fios (RB)"/>
+        <Property name="toolTipText" type="java.lang.String" value="RB = Relaxa&#xe7;&#xe3;o baixa"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[192, 24]"/>
@@ -309,7 +312,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="14" y="367" width="-1" height="-1"/>
+          <AbsoluteConstraints x="14" y="367" width="290" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

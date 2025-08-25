@@ -4,6 +4,7 @@
  */
 package com.ada.protende;
 
+import com.ada.PDFPrinter.PrinterPDF;
 import com.ada.prestressedCalc.PrestressingForces;
 import javax.swing.JOptionPane;
 import util.Converter;
@@ -80,37 +81,37 @@ public class ProtendeJFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Tipo de protensão");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(30, 90, 110, 16);
+        jLabel3.setBounds(30, 90, 110, 19);
 
         prestressedTypeGroup.add(completePrestressingRadioBtn);
         completePrestressingRadioBtn.setText("Completa");
         getContentPane().add(completePrestressingRadioBtn);
-        completePrestressingRadioBtn.setBounds(50, 120, 120, 21);
+        completePrestressingRadioBtn.setBounds(50, 120, 120, 23);
 
         prestressedTypeGroup.add(limitedPrestressingRadioBtn);
         limitedPrestressingRadioBtn.setText("Limitada");
         getContentPane().add(limitedPrestressingRadioBtn);
-        limitedPrestressingRadioBtn.setBounds(50, 150, 110, 21);
+        limitedPrestressingRadioBtn.setBounds(50, 150, 110, 23);
 
         prestressedTypeGroup.add(partialPrestressingRadioBtn);
         partialPrestressingRadioBtn.setText("Parcial");
         getContentPane().add(partialPrestressingRadioBtn);
-        partialPrestressingRadioBtn.setBounds(50, 180, 110, 21);
+        partialPrestressingRadioBtn.setBounds(50, 180, 110, 23);
 
         executiveTypeGroup.add(preTensionRadioBtn);
         preTensionRadioBtn.setText("Armadura pré-tracionada");
         getContentPane().add(preTensionRadioBtn);
-        preTensionRadioBtn.setBounds(500, 120, 180, 21);
+        preTensionRadioBtn.setBounds(500, 120, 180, 23);
 
         executiveTypeGroup.add(bondedPostTensionRadioBtn);
         bondedPostTensionRadioBtn.setText("Armadura pós-tracionada aderente");
         getContentPane().add(bondedPostTensionRadioBtn);
-        bondedPostTensionRadioBtn.setBounds(500, 150, 230, 21);
+        bondedPostTensionRadioBtn.setBounds(500, 150, 230, 23);
 
         executiveTypeGroup.add(non_bondedPostTensionRadioBtn);
         non_bondedPostTensionRadioBtn.setText("Armadura pós-tracionada não aderente");
         getContentPane().add(non_bondedPostTensionRadioBtn);
-        non_bondedPostTensionRadioBtn.setBounds(500, 180, 250, 21);
+        non_bondedPostTensionRadioBtn.setBounds(500, 180, 250, 23);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator1);
@@ -122,7 +123,7 @@ public class ProtendeJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Método executivo");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(490, 90, 110, 16);
+        jLabel4.setBounds(490, 90, 110, 19);
 
         calculatePrestressingButton.setText("Calcular");
         calculatePrestressingButton.addActionListener(new java.awt.event.ActionListener() {
@@ -131,13 +132,13 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(calculatePrestressingButton);
-        calculatePrestressingButton.setBounds(30, 290, 90, 23);
+        calculatePrestressingButton.setBounds(30, 290, 90, 25);
 
         jLabel5.setText("Perda de protensão (%)");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(30, 240, 140, 16);
+        jLabel5.setBounds(30, 240, 180, 19);
         getContentPane().add(lossOfPrestressingText);
-        lossOfPrestressingText.setBounds(170, 240, 80, 20);
+        lossOfPrestressingText.setBounds(220, 240, 80, 20);
 
         jMenu1.setText("Arquivo");
 
@@ -239,11 +240,11 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         // type prestressing analysis
         if (completePrestressingRadioBtn.isSelected()) {
             System.out.println("Protenção completa");
-            typePrestressing = "complete";
+            typePrestressing = "Total";
         }
         if (limitedPrestressingRadioBtn.isSelected()) {
             System.out.println("Protenção limitada");
-            typePrestressing = "limited";
+            typePrestressing = "Limited";
         }
         if (partialPrestressingRadioBtn.isSelected()) {
             System.out.println("Protenção partial ainda não implementada");
@@ -304,6 +305,7 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         double tendonTension = 0.0;
         double fyk = 0.0;
         double fckj = 0.0;
+        String relaxationType="";
 
         try {
             fck = materialFrame.getFck();
@@ -311,6 +313,7 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             tendonTension = materialFrame.getTendonTension();
             fyk = materialFrame.getFyk();
             fckj = materialFrame.getFckj();
+            relaxationType = materialFrame.getRelaxationType();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha as propriedades de material");
             e.printStackTrace();
@@ -339,6 +342,8 @@ public class ProtendeJFrame extends javax.swing.JFrame {
                 .sectionType(sectionType)
                 .typePrestressing(typePrestressing)
                 .lossPrestress(lossOfPrestressing)
+                .posTensionOrPreTension(tensionType)
+                .relaxationType(relaxationType)
                 .build();
 
         try {
@@ -347,6 +352,8 @@ public class ProtendeJFrame extends javax.swing.JFrame {
             System.getLogger(ProtendeJFrame.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
 
+        //Print pdf file with results
+        PrinterPDF pdf = new PrinterPDF(comp.getEffectivePrestressForce());
 
     }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 

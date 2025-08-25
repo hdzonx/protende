@@ -86,29 +86,29 @@ public class LoadJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("kNm");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(330, 80, 25, 16);
+        jLabel6.setBounds(330, 80, 40, 19);
 
         jLabel7.setText("kNm");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(330, 120, 26, 16);
+        jLabel7.setBounds(330, 120, 40, 20);
 
         jLabel8.setText("kNm");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(330, 160, 26, 16);
+        jLabel8.setBounds(330, 160, 40, 19);
 
         jLabel9.setText("kNm");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(330, 200, 26, 16);
+        jLabel9.setBounds(330, 200, 40, 19);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Coeficientes de ponderação no Estado Limite de Serviço");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(0, 260, 400, 16);
+        jLabel10.setBounds(0, 260, 400, 14);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Momentos fletores");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(0, 30, 400, 16);
+        jLabel11.setBounds(0, 30, 400, 14);
 
         jLabel12.setText("<html> &#968<sub>2<sub>");
         getContentPane().add(jLabel12);
@@ -116,19 +116,19 @@ public class LoadJFrame extends javax.swing.JFrame {
 
         jLabel13.setText("<html> &#968<sub>1<sub>");
         getContentPane().add(jLabel13);
-        jLabel13.setBounds(10, 300, 20, 22);
+        jLabel13.setBounds(10, 300, 20, 26);
         getContentPane().add(selfLoadTextFiled);
-        selfLoadTextFiled.setBounds(200, 80, 90, 22);
+        selfLoadTextFiled.setBounds(200, 80, 90, 25);
         getContentPane().add(othersDeadLoadTextField);
-        othersDeadLoadTextField.setBounds(200, 120, 90, 22);
+        othersDeadLoadTextField.setBounds(200, 120, 90, 25);
         getContentPane().add(liveLoadPrincipalMomentTextField);
-        liveLoadPrincipalMomentTextField.setBounds(200, 160, 90, 22);
+        liveLoadPrincipalMomentTextField.setBounds(200, 160, 90, 25);
         getContentPane().add(liveLoadSecundaryMomentTextField);
-        liveLoadSecundaryMomentTextField.setBounds(200, 200, 90, 22);
+        liveLoadSecundaryMomentTextField.setBounds(200, 200, 90, 25);
         getContentPane().add(pis_2_coeff_textField);
-        pis_2_coeff_textField.setBounds(50, 330, 64, 22);
+        pis_2_coeff_textField.setBounds(50, 330, 64, 25);
         getContentPane().add(psi_1_CoeffTextField);
-        psi_1_CoeffTextField.setBounds(50, 300, 64, 22);
+        psi_1_CoeffTextField.setBounds(50, 300, 64, 25);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jSeparator1);
@@ -145,7 +145,7 @@ public class LoadJFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(confirmLoadButton);
-        confirmLoadButton.setBounds(270, 330, 100, 23);
+        confirmLoadButton.setBounds(270, 330, 100, 25);
 
         pack();
         setLocationRelativeTo(null);

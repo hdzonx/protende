@@ -21,7 +21,21 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
  */
 public class PrinterPDF {
 
-    public static void main(String[] args) {
+    private static String typePrestressing = " ";
+    private static double forceInDescompression = 0.0;
+    private static double forceInFissuration = 0.0;
+    private static double finalPrestressingForce = 0.0;
+    private static double finalPrestressingForceWithLoss = 0.0;
+    private static double effectivePrestressingForceWithLoss = 0.0;
+    private static double lossOfPrestressing = 0.0;
+
+    public PrinterPDF(double effectivePrestressingForceWithLoss) {
+        this.effectivePrestressingForceWithLoss = effectivePrestressingForceWithLoss;
+        printResults();
+    }
+
+    private static void printResults() {
+
         try {
             // Criando o documento PDF
             PDDocument document = new PDDocument();
@@ -40,7 +54,7 @@ public class PrinterPDF {
             contentStream.beginText();
             contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_BOLD), 18);
             contentStream.newLineAtOffset(50, yPosition);
-            contentStream.showText("Título do Documento");
+            contentStream.showText("Resultado das forças de protensão");
             contentStream.endText();
 
             // Atualizando a posição vertical após o título
@@ -50,17 +64,56 @@ public class PrinterPDF {
             contentStream.beginText();
             contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
             contentStream.newLineAtOffset(50, yPosition);
-            contentStream.showText("Este é um parágrafo de exemplo. Aqui podemos adicionar texto com espaçamento apropriado.");
+            contentStream.showText("Tipo de protensão: " + typePrestressing);
             contentStream.endText();
 
             // Atualizando a posição para o próximo parágrafo
-            yPosition -= 20;
+            yPosition -= 30;
 
             // Adicionando outro parágrafo
             contentStream.beginText();
             contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
             contentStream.newLineAtOffset(50, yPosition);
-            contentStream.showText("Outro parágrafo, com um texto mais longo para ilustrar o espaçamento.");
+            contentStream.showText("Estado limite de Descompressão = " + forceInDescompression + " kN");
+            contentStream.endText();
+
+            // Atualizando a posição para o próximo parágrafo
+            yPosition -= 30;
+
+            // Adicionando outro parágrafo
+            contentStream.beginText();
+            contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
+            contentStream.newLineAtOffset(50, yPosition);
+            contentStream.showText("Estado limite de Fissuração = " + forceInFissuration + " kN");
+            contentStream.endText();
+            // Atualizando a posição para o próximo parágrafo
+            yPosition -= 30;
+
+            // Adicionando outro parágrafo
+            contentStream.beginText();
+            contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
+            contentStream.newLineAtOffset(50, yPosition);
+            contentStream.showText("Força final de protensão sem perdas = " + finalPrestressingForce + " kN");
+            contentStream.endText();
+
+            // Atualizando a posição para o próximo parágrafo
+            yPosition -= 30;
+
+            // Adicionando outro parágrafo
+            contentStream.beginText();
+            contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
+            contentStream.newLineAtOffset(50, yPosition);
+            contentStream.showText("Força final de protensão com perdas de " + lossOfPrestressing + " % = " + finalPrestressingForceWithLoss + " kN");
+            contentStream.endText();
+
+            // Atualizando a posição para o próximo parágrafo
+            yPosition -= 30;
+
+            // Adicionando outro parágrafo
+            contentStream.beginText();
+            contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
+            contentStream.newLineAtOffset(50, yPosition);
+            contentStream.showText("Força final efetiva considerando a cordoalha usada e as perdas de protensão = " + effectivePrestressingForceWithLoss + " kN");
             contentStream.endText();
 
             // Atualizando a posição para o próximo parágrafo
@@ -68,9 +121,8 @@ public class PrinterPDF {
 
             // Adicionando uma imagem (certifique-se de ter a imagem no caminho correto)
             //String imagePath = "caminho/para/imagem.jpg";
-           // PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
-           // contentStream.drawImage(pdImage, 50, yPosition, 200, 100); // x, y, largura, altura
-
+            // PDImageXObject pdImage = PDImageXObject.createFromFile(imagePath, document);
+            // contentStream.drawImage(pdImage, 50, yPosition, 200, 100); // x, y, largura, altura
             // Fechando o fluxo de conteúdo
             contentStream.close();
             // Caminho do arquivo PDF gerado
@@ -88,6 +140,7 @@ public class PrinterPDF {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private static void openPdfAutomatically(String pdfPath) {
@@ -110,5 +163,9 @@ public class PrinterPDF {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        printResults();
     }
 }

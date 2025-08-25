@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class PrestressingForces {
 
+    //initial data
     private final double inertia; //cm4
     private final double area;//cm²
     private final double prestressingExcentricity;//cm
@@ -32,6 +33,9 @@ public class PrestressingForces {
     private final String posTensionOrPreTension;
     private final String relaxationType;
     private final String typePrestressing;
+    
+    //Results
+    private double effectivePrestressForce;
 
     public PrestressingForces(Builder builder) {
         inertia = builder.inertia;
@@ -290,7 +294,8 @@ public class PrestressingForces {
             force = fissurationForce;
         }
         //Força de protensão final considerando as perdas de protensão
-        return force / (1 - lossPrestress);
+        double finalForceWithLoss = force / (1 - lossPrestress);
+        return finalForceWithLoss;
     }
 
     protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
@@ -312,7 +317,9 @@ public class PrestressingForces {
             numberTendons += 1;
         }
         double effectiveArea = numberTendons * tendonArea;
-        return effectiveArea * operatedStressTendonLimite;
+        double effectiveForce = effectiveArea * operatedStressTendonLimite;
+        setEffectivePrestressForce(effectiveForce);
+        return effectiveForce;
 
     }
 
@@ -324,4 +331,13 @@ public class PrestressingForces {
         System.out.println("Força de protensão efetiva = " + effectivePrestressForce);
     }
 
+    public double getEffectivePrestressForce() {
+        return effectivePrestressForce;
+    }
+
+    private void setEffectivePrestressForce(double effectivePrestressForce) {
+        this.effectivePrestressForce = effectivePrestressForce;
+    }
+
+    
 }
