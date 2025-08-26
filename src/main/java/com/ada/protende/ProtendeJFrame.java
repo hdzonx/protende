@@ -301,19 +301,15 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         }
         //Material Properties
         double fck = 0.0;
-        double tendonDiameter = 0.0;
         double tendonTension = 0.0;
-        double fyk = 0.0;
-        double fckj = 0.0;
-        String relaxationType="";
+        String tendonType = "";
+        String relaxationType = "";
 
         try {
             fck = materialFrame.getFck();
-            tendonDiameter = materialFrame.getTendonDiameter();
             tendonTension = materialFrame.getTendonTension();
-            fyk = materialFrame.getFyk();
-            fckj = materialFrame.getFckj();
             relaxationType = materialFrame.getRelaxationType();
+            tendonType = materialFrame.getTendonType();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha as propriedades de material");
             e.printStackTrace();
@@ -343,6 +339,8 @@ public class ProtendeJFrame extends javax.swing.JFrame {
                 .typePrestressing(typePrestressing)
                 .lossPrestress(lossOfPrestressing)
                 .posTensionOrPreTension(tensionType)
+                .tendonType(tendonType)
+                .f_ptk(tendonTension)
                 .relaxationType(relaxationType)
                 .build();
 
@@ -353,7 +351,7 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         }
 
         //Print pdf file with results
-        PrinterPDF pdf = new PrinterPDF(comp.getEffectivePrestressForce());
+        PrinterPDF pdf = new PrinterPDF(comp.getEffectivePrestressForce(), comp.getFinalForceWithLoss());
 
     }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 

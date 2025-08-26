@@ -29,8 +29,9 @@ public class PrinterPDF {
     private static double effectivePrestressingForceWithLoss = 0.0;
     private static double lossOfPrestressing = 0.0;
 
-    public PrinterPDF(double effectivePrestressingForceWithLoss) {
+    public PrinterPDF(double effectivePrestressingForceWithLoss, double finalPrestressingForceWithLoss) {
         this.effectivePrestressingForceWithLoss = effectivePrestressingForceWithLoss;
+        this.finalPrestressingForceWithLoss = finalPrestressingForceWithLoss;
         printResults();
     }
 

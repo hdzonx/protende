@@ -51,7 +51,7 @@ public class OperatedStressTendonLimite {
         double stress1 = 0.74 * f_ptk;
         double stress2 = 0.87 * 0.85 * f_ptk;
         double result;
-        if (stress1 > stress2) {
+        if (stress1 < stress2) {
             result = stress1;
         } else {
             result = stress2;
@@ -63,7 +63,7 @@ public class OperatedStressTendonLimite {
         double stress1 = 0.74 * f_ptk;
         double stress2 = 0.82 * 0.90 * f_ptk;
         double result;
-        if (stress1 > stress2) {
+        if (stress1 < stress2) {
             result = stress1;
         } else {
             result = stress2;
@@ -76,7 +76,7 @@ public class OperatedStressTendonLimite {
         double stress1 = 0.80 * f_ptk;
         double stress2 = 0.88 * 0.90 * f_ptk;
         double result;
-        if (stress1 > stress2) {
+        if (stress1 < stress2) {
             result = stress1;
         } else {
             result = stress2;
@@ -88,7 +88,7 @@ public class OperatedStressTendonLimite {
         double stress1 = 0.77 * f_ptk;
         double stress2 = 0.90 * 0.85 * f_ptk;
         double result;
-        if (stress1 > stress2) {
+        if (stress1 < stress2) {
             result = stress1;
         } else {
             result = stress2;
@@ -100,7 +100,7 @@ public class OperatedStressTendonLimite {
         double stress1 = 0.77 * f_ptk;
         double stress2 = 0.85 * 0.90 * f_ptk;
         double result;
-        if (stress1 > stress2) {
+        if (stress1 < stress2) {
             result = stress1;
         } else {
             result = stress2;

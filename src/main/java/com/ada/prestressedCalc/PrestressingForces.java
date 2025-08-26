@@ -33,9 +33,10 @@ public class PrestressingForces {
     private final String posTensionOrPreTension;
     private final String relaxationType;
     private final String typePrestressing;
-    
+
     //Results
     private double effectivePrestressForce;
+    private double finalForceWithLoss;
 
     public PrestressingForces(Builder builder) {
         inertia = builder.inertia;
@@ -295,6 +296,8 @@ public class PrestressingForces {
         }
         //Força de protensão final considerando as perdas de protensão
         double finalForceWithLoss = force / (1 - lossPrestress);
+        setFinalForceWithLoss(finalForceWithLoss);
+        System.out.println("Força com perdas de protensão = " + finalForceWithLoss);
         return finalForceWithLoss;
     }
 
@@ -328,6 +331,7 @@ public class PrestressingForces {
         OperatedStressTendonLimite limite = new OperatedStressTendonLimite();
         double operatedStress = limite.run(f_ptk, posTensionOrPreTension, relaxationType);
         double effectivePrestressForce = effectivePrestressForce(tendonType, operatedStress, finalForceWithLoss);
+        System.out.println("Tensão na operação de estiramento = "+operatedStress);
         System.out.println("Força de protensão efetiva = " + effectivePrestressForce);
     }
 
@@ -339,5 +343,12 @@ public class PrestressingForces {
         this.effectivePrestressForce = effectivePrestressForce;
     }
 
-    
+    public double getFinalForceWithLoss() {
+        return finalForceWithLoss;
+    }
+
+    private void setFinalForceWithLoss(double finalForceWithLoss) {
+        this.finalForceWithLoss = finalForceWithLoss;
+    }
+
 }

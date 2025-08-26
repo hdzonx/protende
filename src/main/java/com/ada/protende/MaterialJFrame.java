@@ -26,6 +26,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
     private double fyk;//resisêtência à tração da armadura passiva
     private double fckj;//Resistência do concreto no ato da protensão
     private String relaxationType;//Tipo de relaxação do aço. Cordoalhas CP 190 são fabricadas sempre com relaxação baixa.
+    private String tendonType; // Tipo de aço e especificação. Exemplo: CP190_127.
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,56 +75,56 @@ public class MaterialJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Armadura passiva");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(6, 202, 190, 19);
+        jLabel2.setBounds(6, 202, 190, 16);
 
         jLabel3.setText("Armadura Ativa (cordoalhas engraxadas)");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(6, 269, 300, 19);
+        jLabel3.setBounds(6, 269, 300, 16);
 
         fckButtonGroup.add(C40);
         C40.setText("C40");
         getContentPane().add(C40);
-        C40.setBounds(20, 46, 60, 23);
+        C40.setBounds(20, 46, 60, 21);
 
         fckButtonGroup.add(C45);
         C45.setText("C45");
         getContentPane().add(C45);
-        C45.setBounds(20, 76, 60, 23);
+        C45.setBounds(20, 76, 60, 21);
 
         fckButtonGroup.add(C50);
         C50.setText("C50");
         getContentPane().add(C50);
-        C50.setBounds(20, 106, 60, 23);
+        C50.setBounds(20, 106, 60, 21);
 
         fckButtonGroup.add(C55);
         C55.setText("C55");
         getContentPane().add(C55);
-        C55.setBounds(100, 46, 60, 23);
+        C55.setBounds(100, 46, 60, 21);
 
         fckButtonGroup.add(C60);
         C60.setText("C60");
         getContentPane().add(C60);
-        C60.setBounds(100, 76, 60, 23);
+        C60.setBounds(100, 76, 60, 21);
 
         fckButtonGroup.add(C65);
         C65.setText("C65");
         getContentPane().add(C65);
-        C65.setBounds(100, 106, 60, 23);
+        C65.setBounds(100, 106, 60, 21);
 
         fckButtonGroup.add(C70);
         C70.setText("C70");
         getContentPane().add(C70);
-        C70.setBounds(180, 46, 70, 23);
+        C70.setBounds(180, 46, 70, 21);
 
         fckButtonGroup.add(C75);
         C75.setText("C75");
         getContentPane().add(C75);
-        C75.setBounds(180, 76, 70, 23);
+        C75.setBounds(180, 76, 70, 21);
 
         fckButtonGroup.add(C80);
         C80.setText("C80");
         getContentPane().add(C80);
-        C80.setBounds(180, 106, 70, 23);
+        C80.setBounds(180, 106, 70, 21);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(6, 192, 400, 3);
         getContentPane().add(jSeparator2);
@@ -132,13 +133,13 @@ public class MaterialJFrame extends javax.swing.JFrame {
         jLabel4.setText("fck,j");
         jLabel4.setToolTipText("Resistência do concreto na data da protensão");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(6, 148, 50, 19);
+        jLabel4.setBounds(6, 148, 50, 16);
         getContentPane().add(fck_j_Textfield);
-        fck_j_Textfield.setBounds(66, 148, 100, 25);
+        fck_j_Textfield.setBounds(66, 148, 100, 22);
 
         jLabel5.setText("fck");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(10, 26, 40, 19);
+        jLabel5.setBounds(10, 26, 40, 16);
 
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -147,11 +148,11 @@ public class MaterialJFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(190, 410, 100, 25);
+        jButton1.setBounds(190, 410, 100, 23);
 
         jLabel6.setText("CA-50 ");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(6, 228, 80, 19);
+        jLabel6.setBounds(6, 228, 80, 16);
 
         prestressedSteelButtonGroup.add(CP190_127);
         CP190_127.setText("CP 190 RB 12,7 - 7 fios (RB)");
@@ -168,7 +169,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
         CP190_152.setToolTipText("RB = Relaxação baixa");
         CP190_152.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         getContentPane().add(CP190_152);
-        CP190_152.setBounds(14, 337, 290, 23);
+        CP190_152.setBounds(14, 337, 290, 21);
 
         prestressedSteelButtonGroup.add(CP190_157);
         CP190_157.setText("CP 190 RB 15,7 - 7 fios (RB)");
@@ -190,6 +191,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
         double tendonDiameter = 0.0;
         double fyk = 50.0;
         String relaxationType = "";
+        String tendonType = "";
 
         if (C40.isSelected()) {
             fck = 40.0;
@@ -217,15 +219,18 @@ public class MaterialJFrame extends javax.swing.JFrame {
             tendonDiameter = 1.27;
             tendonTension = 190;
             relaxationType = "low";
+            tendonType = "CP190_127";
         } else if (CP190_152.isSelected()) {
             tendonDiameter = 1.52;
             tendonTension = 190;
             relaxationType = "low";
+            tendonType = "CP190_152";
 
         } else if (CP190_157.isSelected()) {
             tendonDiameter = 1.57;
             tendonTension = 190;
             relaxationType = "low";
+            tendonType = "CP190_157";
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione o fck do concreto.");
@@ -237,6 +242,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
         this.fyk = fyk;
         this.fckj = Converter.textToDouble(fck_j_Textfield);
         this.relaxationType = relaxationType;
+        this.tendonType = tendonType;
 
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -263,6 +269,10 @@ public class MaterialJFrame extends javax.swing.JFrame {
 
     public String getRelaxationType() {
         return relaxationType;
+    }
+
+    public String getTendonType() {
+        return tendonType;
     }
 
     /**
