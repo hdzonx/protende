@@ -21,21 +21,80 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
  */
 public class PrinterPDF {
 
-    private static String typePrestressing = " ";
-    private static double forceInDescompression = 0.0;
-    private static double forceInFissuration = 0.0;
-    private static double finalPrestressingForce = 0.0;
-    private static double finalPrestressingForceWithLoss = 0.0;
-    private static double effectivePrestressingForceWithLoss = 0.0;
-    private static double lossOfPrestressing = 0.0;
+    private static String typePrestressing = "";
+    private static double forceInDescompression;
+    private static double forceInFissuration;
+    private static double finalPrestressingForceWithLoss;
+    private static double effectivePrestressingForceWithLoss;
+    private static double lossOfPrestressing;
+    private static double operatedStress;
 
-    public PrinterPDF(double effectivePrestressingForceWithLoss, double finalPrestressingForceWithLoss) {
-        this.effectivePrestressingForceWithLoss = effectivePrestressingForceWithLoss;
-        this.finalPrestressingForceWithLoss = finalPrestressingForceWithLoss;
+    public PrinterPDF() {
+
         printResults();
     }
 
-    private static void printResults() {
+    public PrinterPDF(Builder builder) {
+        typePrestressing = builder.typePrestressing;
+        forceInDescompression = builder.forceInDescompression;
+        forceInFissuration = builder.forceInFissuration;
+        finalPrestressingForceWithLoss = builder.finalPrestressingForceWithLoss;
+        effectivePrestressingForceWithLoss = builder.effectivePrestressingForceWithLoss;
+        lossOfPrestressing = builder.lossOfPrestressing;
+
+    }
+
+    public static class Builder {
+
+        private String typePrestressing = " ";
+        private double forceInDescompression = 0.0;
+        private double forceInFissuration = 0.0;
+        private double finalPrestressingForceWithLoss = 0.0;
+        private double effectivePrestressingForceWithLoss = 0.0;
+        private double lossOfPrestressing = 0.0;
+        private double operatedStress = 0.0;
+
+        public Builder typePrestressing(String val) {
+            typePrestressing = val;
+            return this;
+        }
+
+        public Builder forceInDescompression(double val) {
+            forceInDescompression = val;
+            return this;
+        }
+
+        public Builder forceInFissuration(double val) {
+            forceInFissuration = val;
+            return this;
+        }
+
+        public Builder finalPrestressingForceWithLoss(double val) {
+            finalPrestressingForceWithLoss = val;
+            return this;
+        }
+
+        public Builder lossOfPrestressing(double val) {
+            lossOfPrestressing = val;
+            return this;
+        }
+
+        public Builder effectivePrestressingForceWithLoss(double val) {
+            effectivePrestressingForceWithLoss = val;
+            return this;
+        }
+
+        public Builder operatedStress(double val) {
+            operatedStress = val;
+            return this;
+        }
+
+        public PrinterPDF build() {
+            return new PrinterPDF(this);
+        }
+    }
+
+    public static void printResults() {
 
         try {
             // Criando o documento PDF
@@ -94,9 +153,8 @@ public class PrinterPDF {
             contentStream.beginText();
             contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
             contentStream.newLineAtOffset(50, yPosition);
-            contentStream.showText("Força final de protensão sem perdas = " + finalPrestressingForce + " kN");
+            contentStream.showText("Limite de tensão na operação de estiramento = " + operatedStress + " kN/cm²");
             contentStream.endText();
-
             // Atualizando a posição para o próximo parágrafo
             yPosition -= 30;
 
@@ -104,7 +162,7 @@ public class PrinterPDF {
             contentStream.beginText();
             contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
             contentStream.newLineAtOffset(50, yPosition);
-            contentStream.showText("Força final de protensão com perdas de " + lossOfPrestressing + " % = " + finalPrestressingForceWithLoss + " kN");
+            contentStream.showText("Força de protensão com perdas de " + lossOfPrestressing + " % = " + finalPrestressingForceWithLoss + " kN");
             contentStream.endText();
 
             // Atualizando a posição para o próximo parágrafo
@@ -116,9 +174,6 @@ public class PrinterPDF {
             contentStream.newLineAtOffset(50, yPosition);
             contentStream.showText("Força final efetiva considerando a cordoalha usada e as perdas de protensão = " + effectivePrestressingForceWithLoss + " kN");
             contentStream.endText();
-
-            // Atualizando a posição para o próximo parágrafo
-            yPosition -= 30;
 
             // Adicionando uma imagem (certifique-se de ter a imagem no caminho correto)
             //String imagePath = "caminho/para/imagem.jpg";

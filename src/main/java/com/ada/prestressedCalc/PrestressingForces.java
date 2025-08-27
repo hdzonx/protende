@@ -37,6 +37,9 @@ public class PrestressingForces {
     //Results
     private double effectivePrestressForce;
     private double finalForceWithLoss;
+    private double descompressionForce;
+    private double fissurationForce;
+    private double operatedStress;
 
     public PrestressingForces(Builder builder) {
         inertia = builder.inertia;
@@ -287,6 +290,8 @@ public class PrestressingForces {
         double fissurationForce = forceInServiceabilityLimitState("fissuration");
 
         double force;
+        setDescompressionForce(descompressionForce);
+        setFissurationForce(fissurationForce);
         System.out.println("Força na descompressão (kN)" + descompressionForce);
         System.out.println("Força na abertura de fissuras (kN)" + fissurationForce);
         if (descompressionForce > fissurationForce) {
@@ -331,7 +336,8 @@ public class PrestressingForces {
         OperatedStressTendonLimite limite = new OperatedStressTendonLimite();
         double operatedStress = limite.run(f_ptk, posTensionOrPreTension, relaxationType);
         double effectivePrestressForce = effectivePrestressForce(tendonType, operatedStress, finalForceWithLoss);
-        System.out.println("Tensão na operação de estiramento = "+operatedStress);
+        setOperatedStress(operatedStress);
+        System.out.println("Tensão na operação de estiramento = " + operatedStress);
         System.out.println("Força de protensão efetiva = " + effectivePrestressForce);
     }
 
@@ -349,6 +355,30 @@ public class PrestressingForces {
 
     private void setFinalForceWithLoss(double finalForceWithLoss) {
         this.finalForceWithLoss = finalForceWithLoss;
+    }
+
+    public double getDescompressionForce() {
+        return descompressionForce;
+    }
+
+    private void setDescompressionForce(double descompressionForce) {
+        this.descompressionForce = descompressionForce;
+    }
+
+    public double getFissurationForce() {
+        return fissurationForce;
+    }
+
+    private void setFissurationForce(double fissurationForce) {
+        this.fissurationForce = fissurationForce;
+    }
+
+    public double getOperatedStress() {
+        return operatedStress;
+    }
+
+    private void setOperatedStress(double operatedStress) {
+        this.operatedStress = operatedStress;
     }
 
 }

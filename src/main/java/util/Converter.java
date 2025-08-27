@@ -4,6 +4,8 @@
  */
 package util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -45,6 +47,18 @@ public class Converter {
         }
         return value;
 
+    }
+    
+        /**
+     * método que arredonda valore numéricos double
+     *
+     * @param valor o valor a ser arredondado
+     * @param casasDecimais o número de casas decimais que arredondará o valor
+     * @return o valor arredondado
+     */
+    public static double arred(double valor, int casasDecimais) {
+        BigDecimal bd = new BigDecimal(valor).setScale(casasDecimais, RoundingMode.HALF_EVEN);
+        return bd.doubleValue();
     }
 
 }
