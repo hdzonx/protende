@@ -4,8 +4,8 @@
  */
 package com.ada.prestressedCalc;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  *
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class LimitedPrestressingTest {
 
-    @Test
+    @Test()
     void testPrestressedForceTypicalValues() {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(6.041E5)
@@ -32,11 +32,11 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double force = comp.prestressedForce(1.949, 35);
-        assertEquals(1067.0, force, 1.0);
+        Assert.assertEquals(1067.0, force, 1.0);
 
     }
 
-    @Test
+    @Test()
     void testPrestressedForceTypicalValues_02() {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(6.041E5)
@@ -56,11 +56,11 @@ public class LimitedPrestressingTest {
                 .build();
         double force = comp.prestressedForce(1.949, 35);
         double stress = comp.prestressedStressSup(1067, 15);
-        assertEquals(0.260, stress, 0.001);
+        Assert.assertEquals(0.260, stress, 0.001);
 
     }
 
-    @Test
+    @Test()
     void testPrestressedForceTypicalValues_04() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(6.041E5)
@@ -79,10 +79,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("descompression");
-        assertEquals(1067.0, f, 1);
+        Assert.assertEquals(1067.0, f, 1);
     }
 
-    @Test
+    @Test()
     void testPrestressedForceTypicalValues_05() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(6.041E5)
@@ -101,10 +101,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("fissuration");
-        assertEquals(896.0, f, 1);
+        Assert.assertEquals(896.0, f, 1);
     }
 
-    @Test
+    @Test()
     void testPrestressedDescompression_02() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(3415800)
@@ -123,10 +123,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("descompression");
-        assertEquals(923.0, f, 1);
+        Assert.assertEquals(923.0, f, 1);
     }
 
-    @Test
+    @Test()
     void testPrestresseedStressSup_02() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(3415800)
@@ -145,10 +145,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double s = comp.prestressedStressSup(923, 32.8);
-        assertEquals(0.260, s, 0.001);
+        Assert.assertEquals(0.260, s, 0.001);
     }
 
-    @Test
+    @Test()
     void testPrestressedDescompression_03() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(3415800)
@@ -167,10 +167,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("fissuration");
-        assertEquals(785.0, f, 1);
+        Assert.assertEquals(785.0, f, 1);
     }
 
-    @Test
+    @Test()
     void testPrestressedForceTypicalValues_03() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(2942254)
@@ -189,9 +189,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("descompression");
-        assertEquals(1336.0, f, 1.0);
+        Assert.assertEquals(1336.0, f, 1.0);
     }
-        @Test
+
+    @Test()
     void testPrestressedStressSup_03() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(2942254)
@@ -210,9 +211,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double stress = comp.prestressedStressSup(1336, 53.75);
-        assertEquals(0.378, stress, 0.001);
+        Assert.assertEquals(0.378, stress, 0.001);
     }
-        @Test
+
+    @Test()
     void testPrestressedForceTypicalValues_06() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(2942254)
@@ -231,9 +233,10 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double f = comp.forceInServiceabilityLimitState("fissuration");
-        assertEquals(1150.0, f, 1.0);
+        Assert.assertEquals(1150.0, f, 1.0);
     }
-            @Test
+
+    @Test()
     void testPrestressedStressSup_04() throws Exception {
         PrestressingForces comp = new PrestressingForces.Builder()
                 .inertia(2942254)
@@ -252,7 +255,7 @@ public class LimitedPrestressingTest {
                 .typePrestressing("Limited")
                 .build();
         double stress = comp.prestressedStressSup(1336, 53.75);
-        assertEquals(0.378, stress, 0.001);
+        Assert.assertEquals(0.378, stress, 0.001);
     }
-    
+
 }

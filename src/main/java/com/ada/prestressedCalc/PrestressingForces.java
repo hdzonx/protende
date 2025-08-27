@@ -306,7 +306,7 @@ public class PrestressingForces {
         return finalForceWithLoss;
     }
 
-    protected double effectivePrestressForce(String tendonType, double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
+    protected double effectivePrestressForce( double operatedStressTendonLimite, double finalForceWithLossPrestress) throws Exception {
         double tendonArea = 0.0;
         if (tendonType.equalsIgnoreCase("CP190_127")) {
             tendonArea = 1.00;
@@ -335,7 +335,7 @@ public class PrestressingForces {
         double finalForceWithLoss = finalForceWithLossPrestress();
         OperatedStressTendonLimite limite = new OperatedStressTendonLimite();
         double operatedStress = limite.run(f_ptk, posTensionOrPreTension, relaxationType);
-        double effectivePrestressForce = effectivePrestressForce(tendonType, operatedStress, finalForceWithLoss);
+        double effectivePrestressForce = effectivePrestressForce( operatedStress, finalForceWithLoss);
         setOperatedStress(operatedStress);
         System.out.println("Tensão na operação de estiramento = " + operatedStress);
         System.out.println("Força de protensão efetiva = " + effectivePrestressForce);

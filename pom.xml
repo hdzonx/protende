@@ -10,39 +10,39 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.ada.protende.Protende</exec.mainClass>
     </properties>
- <build>
+    <build>
 
-    <plugins>
+        <plugins>
 
-        <plugin>
+            <plugin>
 
-            <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
 
-            <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
             
-            <version>3.4.2</version>
+                <version>3.4.2</version>
 
-            <configuration>
+                <configuration>
 
-                <archive>
+                    <archive>
 
-                    <manifest>
+                        <manifest>
 
-                        <addClasspath>true</addClasspath>
+                            <addClasspath>true</addClasspath>
 
-                        <mainClass>com.ada.protende.Protende</mainClass>
+                            <mainClass>com.ada.protende.Protende</mainClass>
 
-                    </manifest>
+                        </manifest>
 
-                </archive>
+                    </archive>
 
-            </configuration>
+                </configuration>
 
-        </plugin>
+            </plugin>
 
-    </plugins>
+        </plugins>
 
-</build>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.netbeans.external</groupId>
@@ -50,27 +50,15 @@
             <version>RELEASE240</version>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.3</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.11.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>5.10.3</version>
-            <scope>test</scope>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-    <groupId>org.apache.pdfbox</groupId>
-    <artifactId>pdfbox</artifactId>
-    <version>3.0.5</version>
-</dependency>
     </dependencies>
 </project>
