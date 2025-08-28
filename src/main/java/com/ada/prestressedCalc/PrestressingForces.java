@@ -200,11 +200,11 @@ public class PrestressingForces {
         } else if (sectionType.equalsIgnoreCase("sectionI")) {
             alpha = 1.3;
 
-        } else if (sectionType.equalsIgnoreCase("rectangularSection")) {
+        } else if (sectionType.equalsIgnoreCase("rectangular")) {
             alpha = 1.5;
         } else {
             JOptionPane.showMessageDialog(null, "Tipo de seção não reconhecido");
-            throw new Exception("non-existent section type");
+            throw new IllegalArgumentException("non-existent section type");
         }
         return 0.1 * alpha * 0.7 * 0.3 * Math.pow(fck, 2.0 / 3.0);
     }

@@ -213,6 +213,7 @@ public class MaterialJFrame extends javax.swing.JFrame {
             fck = 80.0;
         } else {
             JOptionPane.showMessageDialog(null, "Selecione o fck do concreto.");
+            throw new IllegalArgumentException("Concrete resistance not checked");
         }
 
         if (CP190_127.isSelected()) {
@@ -233,7 +234,8 @@ public class MaterialJFrame extends javax.swing.JFrame {
             tendonType = "CP190_157";
 
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione o fck do concreto.");
+            JOptionPane.showMessageDialog(null, "Selecione a armadura ativa.");
+            throw new IllegalArgumentException("Tendon type not checked");
 
         }
         this.fck = fck;

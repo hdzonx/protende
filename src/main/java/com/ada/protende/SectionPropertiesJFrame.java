@@ -5,6 +5,7 @@
 package com.ada.protende;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import util.Converter;
 
 /**
@@ -132,7 +133,7 @@ public class SectionPropertiesJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmPropertiesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPropertiesButtonActionPerformed
-         sectionType = "";
+        sectionType = "";
         if (sectionTRadioBtn.isSelected()) {
             System.out.println("Seção T ou duplo T.");
             sectionType = "sectionT";
@@ -152,15 +153,33 @@ public class SectionPropertiesJFrame extends javax.swing.JFrame {
             throw new IllegalArgumentException("section type not selected.");
         }
 
-         areaSection = Converter.textToDouble(sectionAreaText);
-         inertia = Converter.textToDouble(inertiaText);
-         inferiorFiberDist = Converter.textToDouble(inferiorFiberDistanceText);
-         superiorFiberDist = Converter.textToDouble(superiorFiberDistance);
-         prestressExcentricity = Converter.textToDouble(prestressedExcentricityText);
-         System.out.println("Salvando dados de propriedades das seções...");
-         //Fecha a JFrame sem perder os dados
-         dispose();
+        trhowExceptionIfJTexTFieldIsEmpty(sectionAreaText);
+        areaSection = Converter.textToDouble(sectionAreaText);
+
+        trhowExceptionIfJTexTFieldIsEmpty(inertiaText);
+        inertia = Converter.textToDouble(inertiaText);
+
+        trhowExceptionIfJTexTFieldIsEmpty(inferiorFiberDistanceText);
+        inferiorFiberDist = Converter.textToDouble(inferiorFiberDistanceText);
+
+        trhowExceptionIfJTexTFieldIsEmpty(superiorFiberDistance);
+
+        superiorFiberDist = Converter.textToDouble(superiorFiberDistance);
+        
+        trhowExceptionIfJTexTFieldIsEmpty(prestressedExcentricityText);
+        prestressExcentricity = Converter.textToDouble(prestressedExcentricityText);
+
+        System.out.println("Salvando dados de propriedades das seções...");
+        //Fecha a JFrame sem perder os dados
+        dispose();
     }//GEN-LAST:event_confirmPropertiesButtonActionPerformed
+
+    private void trhowExceptionIfJTexTFieldIsEmpty(JTextField textField) {
+        if (textField.getText().trim().isEmpty()) { // trim() remove espaços em branco
+            JOptionPane.showMessageDialog(null, "Campos de texto de texto não pode estar vazio.");
+            throw new IllegalArgumentException("TextField cannot be empty");
+        }
+    }
 
     public String getSectionType() {
         return sectionType;
@@ -186,7 +205,6 @@ public class SectionPropertiesJFrame extends javax.swing.JFrame {
         return prestressExcentricity;
     }
 
-    
     /**
      * @param args the command line arguments
      */

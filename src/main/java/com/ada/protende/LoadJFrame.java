@@ -4,6 +4,8 @@
  */
 package com.ada.protende;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import util.Converter;
 
 /**
@@ -152,12 +154,26 @@ public class LoadJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmLoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmLoadButtonActionPerformed
+
+        trhowExceptionIfJTexTFieldIsEmpty(selfLoadTextFiled);
         this.selfLoadMoment = Converter.textToDouble(selfLoadTextFiled);
+
+        trhowExceptionIfJTexTFieldIsEmpty(othersDeadLoadTextField);
         this.othersDeadLoadMoment = Converter.textToDouble(othersDeadLoadTextField);
+
+        trhowExceptionIfJTexTFieldIsEmpty(liveLoadPrincipalMomentTextField);
         this.principalLiveLoadMoment = Converter.textToDouble(liveLoadPrincipalMomentTextField);
+
+        trhowExceptionIfJTexTFieldIsEmpty(liveLoadSecundaryMomentTextField);
         this.othersLiveLoadMoment = Converter.textToDouble(liveLoadSecundaryMomentTextField);
+
+        trhowExceptionIfJTexTFieldIsEmpty(psi_1_CoeffTextField);
         this.psi_1 = Converter.textToDouble(psi_1_CoeffTextField);
+
+        trhowExceptionIfJTexTFieldIsEmpty(pis_2_coeff_textField);
         this.psi_2 = Converter.textToDouble(pis_2_coeff_textField);
+
+        System.out.println("Salvando dados de carregamento...");
         this.dispose();
     }//GEN-LAST:event_confirmLoadButtonActionPerformed
 
@@ -183,6 +199,13 @@ public class LoadJFrame extends javax.swing.JFrame {
 
     public double getPsi_2() {
         return psi_2;
+    }
+
+    private void trhowExceptionIfJTexTFieldIsEmpty(JTextField textField) {
+        if (textField.getText().trim().isEmpty()) { // trim() remove espaços em branco
+            JOptionPane.showMessageDialog(null, "Campos de texto de texto não pode estar vazio.");
+            throw new IllegalArgumentException("TextField cannot be empty");
+        }
     }
 
     /**

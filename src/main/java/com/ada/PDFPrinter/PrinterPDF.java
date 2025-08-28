@@ -41,6 +41,7 @@ public class PrinterPDF {
         finalPrestressingForceWithLoss = builder.finalPrestressingForceWithLoss;
         effectivePrestressingForceWithLoss = builder.effectivePrestressingForceWithLoss;
         lossOfPrestressing = builder.lossOfPrestressing;
+        operatedStress = builder.operatedStress;
 
     }
 

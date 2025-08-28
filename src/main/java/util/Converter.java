@@ -60,5 +60,7 @@ public class Converter {
         BigDecimal bd = new BigDecimal(valor).setScale(casasDecimais, RoundingMode.HALF_EVEN);
         return bd.doubleValue();
     }
+    
+    
 
 }
