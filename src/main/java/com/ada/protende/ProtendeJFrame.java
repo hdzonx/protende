@@ -319,7 +319,7 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         if (lossOfPrestressingText.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha o valor das perdas de protensão totais");
             throw new IllegalArgumentException("Loss of prestressing cannot be empty");
-        } 
+        }
         double lossOfPrestressing = 0.01 * Converter.textToDouble(lossOfPrestressingText);
 
         PrestressingForces comp = new PrestressingForces.Builder()
@@ -351,17 +351,23 @@ public class ProtendeJFrame extends javax.swing.JFrame {
         }
 
         //Print pdf file with results
-        PrinterPDF pdf = new PrinterPDF.Builder()
-                .effectivePrestressingForceWithLoss(Converter.arred(comp.getEffectivePrestressForce(), 2))
-                .finalPrestressingForceWithLoss(Converter.arred(comp.getFinalForceWithLoss(), 2))
-                .lossOfPrestressing(lossOfPrestressing * 100)
-                .typePrestressing(typePrestressing)
-                .forceInFissuration(Converter.arred(comp.getFissurationForce(), 2))
-                .forceInDescompression(Converter.arred(comp.getDescompressionForce(), 2))
-                .operatedStress((Converter.arred(comp.getOperatedStress(), 2)))
-                .build();
+        try {
+            PrinterPDF pdf = new PrinterPDF.Builder()
+                    .effectivePrestressingForceWithLoss(Converter.arred(comp.getEffectivePrestressForce(), 2))
+                    .finalPrestressingForceWithLoss(Converter.arred(comp.getFinalForceWithLoss(), 2))
+                    .lossOfPrestressing(lossOfPrestressing * 100)
+                    .typePrestressing(typePrestressing)
+                    .forceInFissuration(Converter.arred(comp.getFissurationForce(), 2))
+                    .forceInDescompression(Converter.arred(comp.getDescompressionForce(), 2))
+                    .operatedStress((Converter.arred(comp.getOperatedStress(), 2)))
+                    .build();
 
-        pdf.printResults();
+            pdf.printResults();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro na impressão dos resultados");
+            e.printStackTrace();
+        }
+
 
     }//GEN-LAST:event_calculatePrestressingButtonActionPerformed
 

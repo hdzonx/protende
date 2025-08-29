@@ -140,7 +140,7 @@ public class SectionPropertiesJFrame extends javax.swing.JFrame {
         }
         if (section_I_RadioBtn.isSelected()) {
             System.out.println("Seção I.");
-            sectionType = "section_I";
+            sectionType = "sectionI";
         }
         if (rectangularSectionRadioBtn.isSelected()) {
             System.out.println("Seção retangular.");
